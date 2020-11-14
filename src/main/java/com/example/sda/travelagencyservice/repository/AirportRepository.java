@@ -1,4 +1,11 @@
 package com.example.sda.travelagencyservice.repository;
 
-public interface AirportRepository {
+
+import com.example.sda.travelagencyservice.model.Airport;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AirportRepository extends CrudRepository<Airport,Long> {
+
 }

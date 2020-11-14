@@ -1,21 +1,22 @@
 package com.example.sda.travelagencyservice.model;
 
 
-
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "airport")
+@Entity
+//@Table(name = "airport")
 public class Airport {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@JoinColumn(name = "id_airport")
     private long id;
 
     private String name;
 
     @ManyToOne
+    //@JoinColumn(name = "id_city")
     private City city;
 
     @OneToMany(mappedBy = "airport")
@@ -24,16 +25,24 @@ public class Airport {
     @OneToMany(mappedBy = "airport")
     private List<Trip> trips;
 
-    public List<Hotel> getHotels() {
-        return hotels;
-    }
 
     public Airport() {
     }
 
+    public Airport(long id, String name, City city, List<Hotel> hotels, List<Trip> trips) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.hotels = hotels;
+        this.trips = trips;
+    }
 
     public void setHotels(List<Hotel> hotels) {
         this.hotels = hotels;
+    }
+
+    public List<Hotel> getHotels() {
+        return hotels;
     }
 
     public List<Trip> getTrips() {
