@@ -4,6 +4,7 @@ package com.example.sda.travelagencyservice.model;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity(name = "country")
 public class Country {
 

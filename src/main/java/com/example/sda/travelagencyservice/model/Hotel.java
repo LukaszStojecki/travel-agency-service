@@ -3,6 +3,7 @@ package com.example.sda.travelagencyservice.model;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity(name = "hotel")
 public class Hotel {
     @Id

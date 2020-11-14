@@ -1,5 +1,6 @@
 package com.example.sda.travelagencyservice.model;
 
+
 public enum Accomodation {
     BB("samo śniadanie"),
     HB("śniadanie i obiadokolacja"),
