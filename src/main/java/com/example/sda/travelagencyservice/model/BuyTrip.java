@@ -21,7 +21,7 @@ public class BuyTrip {
     public BuyTrip() {
     }
 
-    public BuyTrip(long id, List<Trip> trip, String person, BigDecimal tripPrice) {
+    public BuyTrip(long id, List<Trip> trip, Integer person, BigDecimal tripPrice) {
         this.id = id;
         this.trip = trip;
         this.person = person;
@@ -44,11 +44,11 @@ public class BuyTrip {
         this.trip = trip;
     }
 
-    public String getPerson() {
+    public Integer getPerson() {
         return person;
     }
 
-    public void setPerson(String person) {
+    public void setPerson(Integer person) {
         this.person = person;
     }
 
@@ -60,7 +60,7 @@ public class BuyTrip {
         this.tripPrice = tripPrice;
     }
 
-    private String person;
+    private Integer person;
 
     private BigDecimal tripPrice;
 }
