@@ -5,12 +5,11 @@ import java.util.List;
 
 
 @Entity
-//@Table(name = "hotel")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id_hotel")
-    private long id;
+
+    private Long id;
     private String name;
     private String rating;
     private String description;

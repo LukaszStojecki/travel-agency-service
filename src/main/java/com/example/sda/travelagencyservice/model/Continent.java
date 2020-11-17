@@ -6,13 +6,12 @@ import java.util.List;
 
 
 @Entity
-//@Table(name = "continent")
 public class Continent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id_continent")
-    private long id;
+
+    private Long id;
 
     private String name;
 
