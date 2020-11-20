@@ -10,13 +10,11 @@ public class Airport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@JoinColumn(name = "id_airport")
-    private long id;
+    private Long id;
 
     private String name;
 
     @ManyToOne
-    //@JoinColumn(name = "id_city")
     private City city;
 
     @OneToMany(mappedBy = "airport")
@@ -29,7 +27,7 @@ public class Airport {
     public Airport() {
     }
 
-    public Airport(long id, String name, City city, List<Hotel> hotels, List<Trip> trips) {
+    public Airport(Long id, String name, City city, List<Hotel> hotels, List<Trip> trips) {
         this.id = id;
         this.name = name;
         this.city = city;

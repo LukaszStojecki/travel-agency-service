@@ -6,16 +6,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "city")
 public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id_city")
     private Long id;
 
     @ManyToOne
-    //@JoinColumn(name = "id_country")
     private Country country;
 
     @OneToMany(mappedBy = "city")

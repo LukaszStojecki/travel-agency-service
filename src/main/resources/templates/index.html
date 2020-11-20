@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" >
     <title>Travel</title>
 </head>
 <body>
 
 
+<h1>Witaj na stronie serwisu biura podróży</h1>
+
+<p> Jeżeli chcesz korzystać z serwisu, musisz utworzyć konto</p>
 
 
+<p th:text="'Witaj '+ ${username} + ', miło Cię widzieć'"> </p>
+<form th:action="@{/sign-up}" method="get">
+    <input type="submit" value="rejestracja">
+</form>
+<form th:action="@{/login}" method="get">
+    <input type="submit" value="zaloguj się">
+</form>
 
 </body>
 </html>
+

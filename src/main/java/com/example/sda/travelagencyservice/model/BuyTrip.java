@@ -7,24 +7,39 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-//@Table(name = "buytrip")
 public class BuyTrip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id_buyTrip")
-    private long id;
+    private Long id;
 
     @OneToMany(mappedBy = "buyTrip")
     private List<Trip> trip;
 
+    @ManyToOne
+    private User user;
+
+    private BigDecimal tripPrice;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public BuyTrip() {
     }
 
-    public BuyTrip(long id, List<Trip> trip, Integer person, BigDecimal tripPrice) {
+    public BuyTrip(long id, List<Trip> trip, User user, BigDecimal tripPrice) {
         this.id = id;
         this.trip = trip;
-        this.person = person;
+        this.user = user;
         this.tripPrice = tripPrice;
     }
 
@@ -44,13 +59,6 @@ public class BuyTrip {
         this.trip = trip;
     }
 
-    public Integer getPerson() {
-        return person;
-    }
-
-    public void setPerson(Integer person) {
-        this.person = person;
-    }
 
     public BigDecimal getTripPrice() {
         return tripPrice;
@@ -60,7 +68,5 @@ public class BuyTrip {
         this.tripPrice = tripPrice;
     }
 
-    private Integer person;
 
-    private BigDecimal tripPrice;
 }

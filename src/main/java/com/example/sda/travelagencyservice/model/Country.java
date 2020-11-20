@@ -6,16 +6,14 @@ import java.util.List;
 
 
 @Entity
-//@Table(name = "country")
+
 public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @Column(name = "id_country")
-    private long id;
+    private Long id;
 
     @ManyToOne
-   // @JoinColumn(name = "id_continent")
     private Continent continent;
 
     @OneToMany(mappedBy = "country")
