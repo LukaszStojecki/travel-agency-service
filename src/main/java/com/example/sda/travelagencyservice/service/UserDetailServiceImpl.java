@@ -1,7 +1,5 @@
 package com.example.sda.travelagencyservice.service;
 
-
-import com.example.sda.travelagencyservice.model.BuyTrip;
 import com.example.sda.travelagencyservice.model.Role;
 import com.example.sda.travelagencyservice.model.User;
 import com.example.sda.travelagencyservice.repository.UserRepository;
