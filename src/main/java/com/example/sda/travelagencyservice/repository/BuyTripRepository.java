@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BuyTripRepository extends CrudRepository<BuyTrip,Long> {
+public interface BuyTripRepository extends JpaRepository<BuyTrip,Long> {
 }

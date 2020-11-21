@@ -25,11 +25,10 @@ public class Hotel {
     }
 
     @ManyToOne
-    //@JoinColumn(name = "id_city")
     private City city;
 
     @ManyToOne
-    //@JoinColumn(name = "id_airport")
+
     private Airport airport;
 
     @OneToMany(mappedBy = "hotel")

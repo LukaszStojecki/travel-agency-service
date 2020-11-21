@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Add new Trip:</h1>
+<form method="post" th:action="@{/panel/add}" th:object="${addTrip}">
+    <table>
+        <tr>
+            <td>Airport:</td>
+            <td><input th:type="text" th:field="*{airport}"></td>
+        </tr>
+        <tr>
+            <td>Hotel:</td>
+            <td><input th:type="text" th:field="*{hotel}" /></td>
+        </tr>
+        <tr>
+            <td>Accomodation:</td>
+            <td>
+                <select th:field="*{accomodation}" th:id="accomodation">
+                    <option value="">Nothing selected</option>
+                    <option th:each="accomodation: ${T(com.example.sda.travelagencyservice.model.Accomodation).values()}" th:value="${accomodation}" th:text="${accomodation}">Accomodation</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type='date' th:field="*{departure}" /></td>
+        </tr>
+        <tr>
+            <td>End date:</td>
+            <td><input type='date' th:field="*{arrival}" /></td>
+        </tr>
+        <tr>
+            <td>Promotion:</td>
+            <td><input type='checkbox' th:field="*{promoted}" /></td>
+        </tr>
+
+    </table>
+    <input type="submit" value="post">
+</form>
+
+</body>
+</html>

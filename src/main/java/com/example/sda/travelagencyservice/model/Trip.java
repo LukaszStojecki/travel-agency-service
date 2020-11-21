@@ -1,7 +1,10 @@
 package com.example.sda.travelagencyservice.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,11 +13,13 @@ public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    private LocalDateTime arrival;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate arrival;
 
-    private LocalDateTime departure;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate departure;
 
     private Integer days;
 
@@ -37,10 +42,8 @@ public class Trip {
     @ManyToOne
     private Airport airport;
 
-    @ManyToOne
-    private BuyTrip buyTrip;
 
-    public Trip(long id, LocalDateTime arrival, LocalDateTime departure, Integer days, Accomodation accomodation, BigDecimal adultPrice, BigDecimal childPrice, boolean isPromoted, Integer adultPlaceAvailable, Integer childPlaceAvailable, Hotel hotel, Airport airport, BuyTrip buyTrip) {
+    public Trip(long id, LocalDate arrival, LocalDate departure, Integer days, Accomodation accomodation, BigDecimal adultPrice, BigDecimal childPrice, boolean isPromoted, Integer adultPlaceAvailable, Integer childPlaceAvailable, Hotel hotel, Airport airport) {
         this.id = id;
         this.arrival = arrival;
         this.departure = departure;
@@ -53,10 +56,7 @@ public class Trip {
         this.childPlaceAvailable = childPlaceAvailable;
         this.hotel = hotel;
         this.airport = airport;
-        this.buyTrip = buyTrip;
     }
-
-
 
     public Trip() {
     }
@@ -77,14 +77,6 @@ public class Trip {
         this.airport = airport;
     }
 
-    public BuyTrip getBuyTrip() {
-        return buyTrip;
-    }
-
-    public void setBuyTrip(BuyTrip buyTrip) {
-        this.buyTrip = buyTrip;
-    }
-
     public long getId() {
         return id;
     }
@@ -93,19 +85,19 @@ public class Trip {
         this.id = id;
     }
 
-    public LocalDateTime getArrival() {
+    public LocalDate getArrival() {
         return arrival;
     }
 
-    public void setArrival(LocalDateTime arrival) {
+    public void setArrival(LocalDate arrival) {
         this.arrival = arrival;
     }
 
-    public LocalDateTime getDeparture() {
+    public LocalDate getDeparture() {
         return departure;
     }
 
-    public void setDeparture(LocalDateTime departure) {
+    public void setDeparture(LocalDate departure) {
         this.departure = departure;
     }
 

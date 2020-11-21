@@ -13,7 +13,7 @@ public class BuyTrip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "buyTrip")
+    @OneToMany
     private List<Trip> trip;
 
     @ManyToOne
