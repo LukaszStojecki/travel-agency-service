@@ -10,12 +10,71 @@
 <form method="post" th:action="@{/panel/add}" th:object="${addTrip}">
     <table>
         <tr>
-            <td>Airport:</td>
-            <td><input th:type="text" th:field="*{airport}"></td>
+            <td>Select City from:</td>
+            <td>
+                <select th:field="*{cityFrom}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="dropCitiesForm: ${citiesList}"
+                            th:value="${dropCitiesForm.id}"
+                            th:text="${dropCitiesForm.name}">Cities</option>
+                </select>
+            </td>
         </tr>
         <tr>
-            <td>Hotel:</td>
-            <td><input th:type="text" th:field="*{hotel}" /></td>
+            <td>Select Airport from:</td>
+            <td>
+                <select th:field="*{airportFrom}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="dropAirportsFrom: ${airportsList}"
+                            th:value="${dropAirportsFrom.id}"
+                            th:text="${dropAirportsFrom.name}">Airport</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select City where:</td>
+            <td>
+                <select th:field="*{cityWhere}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="dropCitiesForm: ${citiesList}"
+                            th:value="${dropCitiesForm.id}"
+                            th:text="${dropCitiesForm.name}">Cities</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select Hotel where:</td>
+            <td>
+                <select th:field="*{hotelWhere}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="hotel: ${hotelsList}"
+                            th:value="${hotel.id}"
+                            th:text="${hotel.description}">Hotel</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select Airport where:</td>
+            <td>
+                <select th:field="*{airportWhere}">
+                    <option value="">Nothing selected</option>
+                    <option th:each="dropAirportsFrom: ${airportsList}"
+                            th:value="${dropAirportsFrom.id}"
+                            th:text="${dropAirportsFrom.name}">Airport</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type='date' th:field="*{departureDate}" /></td>
+        </tr>
+        <tr>
+            <td>End date:</td>
+            <td><input type='date' th:field="*{arrivalDate}" /></td>
+        </tr>
+        <tr>
+            <td>Days:</td>
+            <td><input type='text' th:field="*{days}" /></td>
         </tr>
         <tr>
             <td>Accomodation:</td>
@@ -27,18 +86,25 @@
             </td>
         </tr>
         <tr>
-            <td>Start Date:</td>
-            <td><input type='date' th:field="*{departure}" /></td>
+            <td>Price for adult:</td>
+            <td><input th:type="text" th:field="*{adultPrice}" /></td>
         </tr>
         <tr>
-            <td>End date:</td>
-            <td><input type='date' th:field="*{arrival}" /></td>
+            <td>Price for child:</td>
+            <td><input th:type="text" th:field="*{childPrice}" /></td>
         </tr>
         <tr>
             <td>Promotion:</td>
             <td><input type='checkbox' th:field="*{promoted}" /></td>
         </tr>
-
+        <tr>
+            <td>Available place for adult:</td>
+            <td><input th:type="text" th:field="*{adultPlaceAvailable}" /></td>
+        </tr>
+        <tr>
+            <td>Available place for child:</td>
+            <td><input th:type="text" th:field="*{childPlaceAvailable}" /></td>
+        </tr>
     </table>
     <input type="submit" value="post">
 </form>

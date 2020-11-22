@@ -1,7 +1,6 @@
 package com.example.sda.travelagencyservice.model;
 
 
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,23 +11,34 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     private Country country;
 
-    @OneToMany(mappedBy = "city")
-    private List<Hotel> hotels;
-
-    @OneToMany(mappedBy = "city")
+//    @OneToMany(mappedBy = "city")
+//    private List<Hotel> hotels;
+//
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
     private  List<Airport> airports;
 
     public City() {
     }
 
-    public City(Long id, Country country, List<Hotel> hotels, List<Airport> airports) {
+    public List<Airport> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
+    }
+
+    public City(Long id, Country country, String name) {
         this.id = id;
         this.country = country;
-        this.hotels = hotels;
-        this.airports = airports;
+        this.name = name;
+//        this.hotels = hotels;
+//        this.airports = airports;
     }
 
     public Long getId() {
@@ -47,20 +57,27 @@ public class City {
         this.country = country;
     }
 
-    public List<Hotel> getHotels() {
-        return hotels;
+//    public List<Hotel> getHotels() {
+//        return hotels;
+//    }
+//
+//    public void setHotels(List<Hotel> hotels) {
+//        this.hotels = hotels;
+//    }
+//
+//    public List<Airport> getAirports() {
+//        return airports;
+//    }
+//
+//    public void setAirports(List<Airport> airports) {
+//        this.airports = airports;
+//    }
+
+    public String getName() {
+        return name;
     }
 
-    public void setHotels(List<Hotel> hotels) {
-        this.hotels = hotels;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public List<Airport> getAirports() {
-        return airports;
-    }
-
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
-    }
-
 }

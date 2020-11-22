@@ -8,8 +8,7 @@ import java.util.List;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private Long id;
+    private long id;
     private String name;
     private String rating;
     private String description;
@@ -20,38 +19,37 @@ public class Hotel {
         this.rating = rating;
         this.description = description;
         this.city = city;
-        this.airport = airport;
-        this.trips = trips;
+//        this.airport = airport;
+//        this.trips = trips;
     }
 
     @ManyToOne
     private City city;
 
-    @ManyToOne
+//    @ManyToOne
+//    private Airport airport;
 
-    private Airport airport;
-
-    @OneToMany(mappedBy = "hotel")
-    private List<Trip> trips;
+//    @OneToMany(mappedBy = "hotel")
+//    private List<Trip> trips;
 
     public Hotel() {
     }
 
-    public Airport getAirport() {
-        return airport;
-    }
+//    public Airport getAirport() {
+//        return airport;
+//    }
+//
+//    public void setAirport(Airport airport) {
+//        this.airport = airport;
+//    }
 
-    public void setAirport(Airport airport) {
-        this.airport = airport;
-    }
-
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
+//    public List<Trip> getTrips() {
+//        return trips;
+//    }
+//
+//    public void setTrips(List<Trip> trips) {
+//        this.trips = trips;
+//    }
 
     public long getId() {
         return id;

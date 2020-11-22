@@ -1,24 +1,35 @@
 package com.example.sda.travelagencyservice.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @ManyToMany
+    private List<City> cityFrom;
+
+    @ManyToMany
+    private List<City> cityWhere;
+
+    @ManyToMany
+    private List<Airport> airportFrom;
+
+    @ManyToMany
+    private List<Airport> airportWhere;
+
+    @ManyToMany
+    private List<Hotel> hotelWhere;
+
     private LocalDate arrival;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departure;
 
     private Integer days;
@@ -36,45 +47,48 @@ public class Trip {
 
     private Integer childPlaceAvailable;
 
-    @ManyToOne
-    private Hotel hotel;
-
-    @ManyToOne
-    private Airport airport;
-
-
-    public Trip(long id, LocalDate arrival, LocalDate departure, Integer days, Accomodation accomodation, BigDecimal adultPrice, BigDecimal childPrice, boolean isPromoted, Integer adultPlaceAvailable, Integer childPlaceAvailable, Hotel hotel, Airport airport) {
-        this.id = id;
-        this.arrival = arrival;
-        this.departure = departure;
-        this.days = days;
-        this.accomodation = accomodation;
-        this.adultPrice = adultPrice;
-        this.childPrice = childPrice;
-        this.isPromoted = isPromoted;
-        this.adultPlaceAvailable = adultPlaceAvailable;
-        this.childPlaceAvailable = childPlaceAvailable;
-        this.hotel = hotel;
-        this.airport = airport;
-    }
 
     public Trip() {
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public List<City> getCityFrom() {
+        return cityFrom;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+    public void setCityFrom(List<City> cityFrom) {
+        this.cityFrom = cityFrom;
     }
 
-    public Airport getAirport() {
-        return airport;
+    public List<City> getCityWhere() {
+        return cityWhere;
     }
 
-    public void setAirport(Airport airport) {
-        this.airport = airport;
+    public void setCityWhere(List<City> cityWhere) {
+        this.cityWhere = cityWhere;
+    }
+
+    public List<Airport> getAirportFrom() {
+        return airportFrom;
+    }
+
+    public void setAirportFrom(List<Airport> airportFrom) {
+        this.airportFrom = airportFrom;
+    }
+
+    public List<Airport> getAirportWhere() {
+        return airportWhere;
+    }
+
+    public void setAirportWhere(List<Airport> airportWhere) {
+        this.airportWhere = airportWhere;
+    }
+
+    public List<Hotel> getHotelWhere() {
+        return hotelWhere;
+    }
+
+    public void setHotelWhere(List<Hotel> hotelWhere) {
+        this.hotelWhere = hotelWhere;
     }
 
     public long getId() {

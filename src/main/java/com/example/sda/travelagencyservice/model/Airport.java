@@ -17,11 +17,11 @@ public class Airport {
     @ManyToOne
     private City city;
 
-    @OneToMany(mappedBy = "airport")
-    private List<Hotel> hotels;
-
-    @OneToMany(mappedBy = "airport")
-    private List<Trip> trips;
+//    //@OneToMany(mappedBy = "airport")
+//    private List<Hotel> hotels;
+//
+//   // @OneToMany(mappedBy = "airport")
+//    private List<Trip> trips;
 
 
     public Airport() {
@@ -31,32 +31,32 @@ public class Airport {
         this.id = id;
         this.name = name;
         this.city = city;
-        this.hotels = hotels;
-        this.trips = trips;
+//        this.hotels = hotels;
+//        this.trips = trips;
     }
 
-    public void setHotels(List<Hotel> hotels) {
-        this.hotels = hotels;
-    }
+//    public void setHotels(List<Hotel> hotels) {
+//        this.hotels = hotels;
+//    }
+//
+//    public List<Hotel> getHotels() {
+//        return hotels;
+//    }
+//
+//    public List<Trip> getTrips() {
+//        return trips;
+//    }
+//
+//    public void setTrips(List<Trip> trips) {
+//        this.trips = trips;
+//    }
 
-    public List<Hotel> getHotels() {
-        return hotels;
-    }
 
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
-
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

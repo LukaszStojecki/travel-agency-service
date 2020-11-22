@@ -5,12 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-
 <h1> Konfiguracja wycieczek przez Administratora</h1>
 
 <form th:action="@{/panel}" method="get" >
     <a href="/panel/add">Add new trip</a>
+    <br>
+    <a href="/panel/add/airport">Add new Airport</a>
+    <br>
+    <a href="/panel/add/city">Add new City</a>
+    <br>
+    <a href="/panel/add/hotel">Add new Hotel</a>
+    <br>
 </form>
-
+<a href="/" th:href="@{/index}">Back to Index</a>
 </body>
 </html>
