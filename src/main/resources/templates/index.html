@@ -1,28 +1,169 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8" >
+    <meta charset="UTF-8">
     <title>Travel</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/fonts/simple-line-icons.min.css}">
 </head>
 <body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
+    <div class="container"><a class="navbar-brand logo" href="#"></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only"></span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Zaloguj</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
+                </li>
 
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/sign-up}">Rejestracja</a>
 
-<h1>Witaj na stronie serwisu biura podróży</h1>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/panel}">Panel Administratora</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page landing-page">
+    <section class="clean-block clean-hero"
+             style="color:rgba(9, 22, 27, 0.85);height:230;width:992;">
+        <div class="text">
+            <div>
+                <div>
+                    <h2 class="text-center font-weight-bold">Serwis Biura Podróży</h2>
+                    <span class="text-center">Wyszukaj swoje najlepsze wakacje!</span>
+                </div>
+            </div>
+            <br>
+            <form method="get" th:action="@{/find}">
+                <div class="row">
+                    <div class="col">
+                        <div class="col">
+                            <label>Wyjazd</label>
+                            <input name="startDate" type="date">
+                        </div>
+                        <div class="col">
+                            <label>Powrót</label>
+                            <input name="endDate" type="date">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">Szukaj</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="clean-block clean-hero" style="color: #1f5074">
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Wyszukane wycieczki</h3><br/>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ID wycieczki</th>
+                    <th>Miasto wylotu</th>
+                    <th>Miasto przylotu</th>
+                    <th>Lotnisko wylotu</th>
+                    <th>Lotnisko przylotu</th>
+                    <th>Termin wyjazdu</th>
+                    <th>Termin powrotu</th>
+                    <th>Wycieczka promowana</th>
+                    <th>Zakup wycieczki</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trip : ${search}">
+                    <td th:text="${trip.id}"></td>
+                    <td th:text="${trip.cityFrom.name}"></td>
+                    <td th:text="${trip.cityWhere.name}"></td>
+                    <td th:text="${trip.airportFrom.name}"></td>
+                    <td th:text="${trip.airportWhere.name}"></td>
+                    <td th:text="${trip.startDate}"></td>
+                    <td th:text="${trip.endDate}"></td>
+                    <td th:text="${trip.promoted}"></td>
+                    <td>
+                        <button type="button" class="btn btn-dark btn-sm"><a th:href="@{'/buyTrip/' + ${trip.id}}">Kup
+                            wycieczkę</a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="clean-block clean-hero"
+             style="background-image: url(https://www.ecotravel.pl/c643941a6cf60b21ed2585f9b19ad7ee,images,1,.jpg)">
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Zbliżające się wycieczki</h3><br/>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>Miasto wylotu</th>
+                    <th>Cena za dorosłego</th>
+                    <th>Data rozpoczęcia</th>
+                    <th>Akcja</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trip:${lastminute}">
+                    <td th:text="${trip.cityFrom.name}"></td>
+                    <td th:text="${trip.adultPrice}"></td>
+                    <td th:text="${trip.startDate}"></td>
+                    <td><a th:href="@{${'/trip/'+ trip.id}}">
+                        <button type="button" class="btn btn-dark btn-sm">Pokaż więcej</button>
+                    </a></td>
+                </tr>
 
-<p> Jeżeli chcesz korzystać z serwisu, musisz utworzyć konto</p>
-
-
-<p th:text="'Witaj '+ ${username} + ', miło Cię widzieć'"> </p>
-<form th:action="@{/sign-up}" method="get">
-    <input type="submit" value="rejestracja">
-</form>
-<form th:action="@{/login}" method="get">
-    <input type="submit" value="zaloguj się">
-</form>
-<form th:action="@{/panel}" method="get">
-    <input type="submit" value="panel">
-</form>
-
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="clean-block clean-hero"
+             style="background-image:url(https://www.pieniadzjestkobieta.pl/wp-content/uploads/2017/03/Planowanie-wakacji-jak-robi%C4%87-to-z-g%C5%82ow%C4%85.jpg);color:rgba(9, 22, 25, 0.85);height:230;width:992;">
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Promowane wycieczki</h3><br/>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>Miasto wylotu</th>
+                    <th>Cena za dorosłego</th>
+                    <th>Data rozpoczęcia</th>
+                    <th>Akcja</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trip:${promotedTrips}">
+                    <td th:text="${trip.cityFrom.name}"></td>
+                    <td th:text="${trip.adultPrice}"></td>
+                    <td th:text="${trip.startDate}"></td>
+                    <td><a th:href="@{${'/trip/'+ trip.id}}">
+                        <button type="button" class="btn btn-dark btn-sm">Pokaż więcej</button>
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer class="page-footer dark">
+    <div class="footer" align="center">
+        <p>© 2020 Copyright</p>
+    </div>
+</footer>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/script.min.js}"></script>
+</body>
 </body>
 </html>
 

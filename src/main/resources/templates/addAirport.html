@@ -6,12 +6,22 @@
 </head>
 <body>
 
-<h3>Add Airport</h3>
+<h3>Dodaj lotnisko</h3>
 <form method="post" th:action="@{/panel/add/airport}" th:object="${addAirport}">
-     Airport Name:
-    <input type="text" th:field="*{name}">
-    <br>
-    <input type="submit" value="add">
+
+    <div><label><strong>Miasto</strong></label>
+
+    <select th:field="*{cityId}">
+        <optgroup label="Lotnisko">
+            <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"></option>
+        </optgroup>
+    </select>
+    </div>
+    <label><strong>Nazwa</strong></label>
+    <input type="text" name="name">
+    <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit">Dodaj</button>
+    </div>
 </form>
 
 </body>

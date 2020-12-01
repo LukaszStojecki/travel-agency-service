@@ -1,19 +1,30 @@
 package com.example.sda.travelagencyservice.dto;
 
-import com.example.sda.travelagencyservice.model.Airport;
-import com.example.sda.travelagencyservice.model.Country;
+
+import java.util.Objects;
 
 public class CityDto {
 
+    private Long id;
     private String name;
-    private Country country;
-    private Airport airport;
+    private Long countryId;
 
 
-    public CityDto(String name, Country country, Airport airport) {
+    public CityDto(Long id, String name, Long countryId) {
+        this.id = id;
         this.name = name;
-        this.country = country;
-        this.airport = airport;
+        this.countryId = countryId;
+    }
+
+    public CityDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,19 +35,36 @@ public class CityDto {
         this.name = name;
     }
 
-    public Country getCountry() {
-        return country;
+    public Long getCountryId() {
+        return countryId;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
     }
 
-    public Airport getAirport() {
-        return airport;
+    @Override
+    public String toString() {
+        return "CityDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", countryId=" + countryId +
+                '}';
     }
 
-    public void setAirport(Airport airport) {
-        this.airport = airport;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CityDto cityDto = (CityDto) o;
+        return id.equals(cityDto.id) &&
+                name.equals(cityDto.name) &&
+                countryId.equals(cityDto.countryId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, countryId);
     }
 }
+

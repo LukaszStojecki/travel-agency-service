@@ -6,12 +6,21 @@
 </head>
 <body>
 
-<h3>Add City</h3>
+<h3>Dodaj miasto</h3>
 <form method="post" th:action="@{/panel/add/city}" th:object="${addCity}">
-    Enter City Name:
-    <input type="text" th:field="*{name}">
-    <br>
-    <input type="submit" value="add">
+
+    <div class="form-group"><label><strong>Kraj</strong></label>
+
+        <select th:field="*{countryId}">
+                <option th:each="country: ${countries}" th:text="${country.name}"
+                        th:value="${country.id}"></option>
+        </select>
+    </div>
+    <label><strong>Nazwa</strong></label>
+    <input type="text" name="name">
+    <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit">Dodaj</button>
+    </div>
 </form>
 
 </body>

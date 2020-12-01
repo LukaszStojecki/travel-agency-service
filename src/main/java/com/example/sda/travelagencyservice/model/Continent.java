@@ -2,7 +2,10 @@ package com.example.sda.travelagencyservice.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -13,6 +16,8 @@ public class Continent {
 
     private Long id;
 
+    @NotEmpty
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "continent")
@@ -21,8 +26,7 @@ public class Continent {
     public Continent() {
     }
 
-    public Continent(long id, String name, List<Country> countries) {
-        this.id = id;
+    public Continent(String name, List<Country> countries) {
         this.name = name;
         this.countries = countries;
     }
@@ -35,12 +39,8 @@ public class Continent {
         this.countries = countries;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -50,4 +50,19 @@ public class Continent {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Continent{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }

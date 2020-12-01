@@ -16,7 +16,7 @@ public class BuyTrip {
     @OneToMany
     private List<Trip> trip;
 
-    @ManyToOne
+    @OneToOne
     private User user;
 
     private BigDecimal tripPrice;
@@ -67,6 +67,5 @@ public class BuyTrip {
     public void setTripPrice(BigDecimal tripPrice) {
         this.tripPrice = tripPrice;
     }
-
 
 }

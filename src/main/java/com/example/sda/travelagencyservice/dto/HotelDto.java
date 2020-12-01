@@ -1,16 +1,19 @@
 package com.example.sda.travelagencyservice.dto;
 
-import com.example.sda.travelagencyservice.model.City;
+
+import java.util.Objects;
 
 public class HotelDto {
 
+    private Long id;
     private String name;
     private String rating;
     private String description;
-    private City cityId;
+    private Long cityId;
 
 
-    public HotelDto(String name, String rating, String description, City cityId) {
+    public HotelDto(Long id, String name, String rating, String description, Long cityId) {
+        this.id = id;
         this.name = name;
         this.rating = rating;
         this.description = description;
@@ -18,6 +21,14 @@ public class HotelDto {
     }
 
     public HotelDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -44,11 +55,39 @@ public class HotelDto {
         this.description = description;
     }
 
-    public City getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(City cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", rating='" + rating + '\'' +
+                ", description='" + description + '\'' +
+                ", cityId=" + cityId +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HotelDto hotelDto = (HotelDto) o;
+        return id.equals(hotelDto.id) &&
+                name.equals(hotelDto.name) &&
+                rating.equals(hotelDto.rating) &&
+                description.equals(hotelDto.description) &&
+                cityId.equals(hotelDto.cityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, rating, description, cityId);
     }
 }

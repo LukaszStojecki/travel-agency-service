@@ -2,55 +2,39 @@ package com.example.sda.travelagencyservice.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-//@Table(name = "airport")
 public class Airport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @NotNull
     private String name;
 
     @ManyToOne
     private City city;
 
-//    //@OneToMany(mappedBy = "airport")
-//    private List<Hotel> hotels;
-//
-//   // @OneToMany(mappedBy = "airport")
-//    private List<Trip> trips;
-
+    @OneToMany(mappedBy = "airportFrom")
+    private List<Trip> tripListFrom;
+    @OneToMany(mappedBy = "airportWhere")
+    private List<Trip> tripListWhere;
 
     public Airport() {
     }
 
-    public Airport(Long id, String name, City city, List<Hotel> hotels, List<Trip> trips) {
-        this.id = id;
+    public Airport(String name, City city, List<Hotel> hotels, List<Trip> trips, List<Trip> tripListFrom, List<Trip> tripListWhere) {
         this.name = name;
         this.city = city;
-//        this.hotels = hotels;
-//        this.trips = trips;
+        this.tripListFrom = tripListFrom;
+        this.tripListWhere = tripListWhere;
     }
-
-//    public void setHotels(List<Hotel> hotels) {
-//        this.hotels = hotels;
-//    }
-//
-//    public List<Hotel> getHotels() {
-//        return hotels;
-//    }
-//
-//    public List<Trip> getTrips() {
-//        return trips;
-//    }
-//
-//    public void setTrips(List<Trip> trips) {
-//        this.trips = trips;
-//    }
-
 
     public Long getId() {
         return id;
@@ -74,5 +58,47 @@ public class Airport {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Trip> getTripListFrom() {
+        return tripListFrom;
+    }
+
+    public void setTripListFrom(List<Trip> tripListFrom) {
+        this.tripListFrom = tripListFrom;
+    }
+
+    public List<Trip> getTripListWhere() {
+        return tripListWhere;
+    }
+
+    public void setTripListWhere(List<Trip> tripListWhere) {
+        this.tripListWhere = tripListWhere;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city=" + city +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Objects.equals(id, airport.id) &&
+                Objects.equals(name, airport.name) &&
+                Objects.equals(city, airport.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, city);
     }
 }

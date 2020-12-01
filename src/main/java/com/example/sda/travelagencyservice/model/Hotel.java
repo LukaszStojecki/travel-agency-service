@@ -1,61 +1,41 @@
 package com.example.sda.travelagencyservice.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     private String name;
     private String rating;
     private String description;
 
-    public Hotel(long id, String name, String rating, String description, City city, Airport airport, List<Trip> trips) {
-        this.id = id;
+    public Hotel(String name, String rating, String description, City city, Airport airport, List<Trip> trips) {
         this.name = name;
         this.rating = rating;
         this.description = description;
         this.city = city;
-//        this.airport = airport;
-//        this.trips = trips;
     }
 
     @ManyToOne
     private City city;
 
-//    @ManyToOne
-//    private Airport airport;
-
-//    @OneToMany(mappedBy = "hotel")
-//    private List<Trip> trips;
 
     public Hotel() {
     }
 
-//    public Airport getAirport() {
-//        return airport;
-//    }
-//
-//    public void setAirport(Airport airport) {
-//        this.airport = airport;
-//    }
-
-//    public List<Trip> getTrips() {
-//        return trips;
-//    }
-//
-//    public void setTrips(List<Trip> trips) {
-//        this.trips = trips;
-//    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -91,4 +71,14 @@ public class Hotel {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", rating='" + rating + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
+

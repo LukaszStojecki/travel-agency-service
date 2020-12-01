@@ -1,5 +1,6 @@
 package com.example.sda.travelagencyservice.service;
 
+import com.example.sda.travelagencyservice.dto.UserDto;
 import com.example.sda.travelagencyservice.model.Role;
 import com.example.sda.travelagencyservice.model.User;
 import com.example.sda.travelagencyservice.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 
@@ -31,10 +33,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public void addNewUser(User addUser) {
-        addUser.setUsername(addUser.getUsername());
-        addUser.setPassword(passwordEncoder.encode(addUser.getPassword()));
-        addUser.setRoles(Arrays.asList(new Role("USER")));
+    public void addNewUser(UserDto userDto) {
+        User addUser = new User();
+        addUser.setUsername(userDto.getUsername());
+        addUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        addUser.setRoles(Collections.singletonList(new Role("USER")));
         userRepository.save(addUser);
     }
 

@@ -6,22 +6,20 @@
 </head>
 <body>
 
-<h3>Add Hotel</h3>
-<form method="post" th:action="@{/panel/add/hotel}" th:object="${addHotel}">
+<h3>Dodaj hotel</h3>
+    <form method="post" th:action="@{/panel/add/hotel}" th:object="${addHotel}">
 
+        <div><label><strong>Miasto</strong></label>
 
-    Hotel name:
-    <input type="text" th:field="*{name}">
-    <br>
-    Enter ratings:
-    <input type="text" th:field="*{rating}">
-    <br>
-    Enter description:
-    <input type="text" th:field="*{description}">
-    <br>
-    <label>Select City: </label>
-    <input type="submit" value="add">
-</form>
-
+            <select th:field="*{cityId}">
+                    <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"></option>
+            </select>
+        </div>
+        <label><strong>Nazwa</strong></label>
+        <input type="text" name="name">
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Dodaj</button>
+        </div>
+    </form>
 </body>
 </html>

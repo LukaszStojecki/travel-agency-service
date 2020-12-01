@@ -1,36 +1,37 @@
 package com.example.sda.travelagencyservice.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Entity
 public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @ManyToMany
-    private List<City> cityFrom;
+    @ManyToOne
+    private City cityFrom;
 
-    @ManyToMany
-    private List<City> cityWhere;
+    @ManyToOne
+    private City cityWhere;
 
-    @ManyToMany
-    private List<Airport> airportFrom;
+    @ManyToOne
+    private Airport airportFrom;
 
-    @ManyToMany
-    private List<Airport> airportWhere;
+    @ManyToOne
+    private Airport airportWhere;
 
-    @ManyToMany
-    private List<Hotel> hotelWhere;
+    @OneToOne
+    private Hotel hotelWhere;
 
-    private LocalDate arrival;
+    private LocalDate startDate;
 
-    private LocalDate departure;
+    private LocalDate endDate;
 
     private Integer days;
 
@@ -51,68 +52,68 @@ public class Trip {
     public Trip() {
     }
 
-    public List<City> getCityFrom() {
+    public City getCityFrom() {
         return cityFrom;
     }
 
-    public void setCityFrom(List<City> cityFrom) {
+    public void setCityFrom(City cityFrom) {
         this.cityFrom = cityFrom;
     }
 
-    public List<City> getCityWhere() {
+    public City getCityWhere() {
         return cityWhere;
     }
 
-    public void setCityWhere(List<City> cityWhere) {
+    public void setCityWhere(City cityWhere) {
         this.cityWhere = cityWhere;
     }
 
-    public List<Airport> getAirportFrom() {
+    public Airport getAirportFrom() {
         return airportFrom;
     }
 
-    public void setAirportFrom(List<Airport> airportFrom) {
+    public void setAirportFrom(Airport airportFrom) {
         this.airportFrom = airportFrom;
     }
 
-    public List<Airport> getAirportWhere() {
+    public Airport getAirportWhere() {
         return airportWhere;
     }
 
-    public void setAirportWhere(List<Airport> airportWhere) {
+    public void setAirportWhere(Airport airportWhere) {
         this.airportWhere = airportWhere;
     }
 
-    public List<Hotel> getHotelWhere() {
+    public Hotel getHotelWhere() {
         return hotelWhere;
     }
 
-    public void setHotelWhere(List<Hotel> hotelWhere) {
+    public void setHotelWhere(Hotel hotelWhere) {
         this.hotelWhere = hotelWhere;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public LocalDate getArrival() {
-        return arrival;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setArrival(LocalDate arrival) {
-        this.arrival = arrival;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getDeparture() {
-        return departure;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setDeparture(LocalDate departure) {
-        this.departure = departure;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public Integer getDays() {
@@ -169,5 +170,26 @@ public class Trip {
 
     public void setChildPlaceAvailable(Integer childPlaceAvailable) {
         this.childPlaceAvailable = childPlaceAvailable;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", cityFrom=" + cityFrom +
+                ", cityWhere=" + cityWhere +
+                ", airportFrom=" + airportFrom +
+                ", airportWhere=" + airportWhere +
+                ", hotelWhere=" + hotelWhere +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", days=" + days +
+                ", accomodation=" + accomodation +
+                ", adultPrice=" + adultPrice +
+                ", childPrice=" + childPrice +
+                ", isPromoted=" + isPromoted +
+                ", adultPlaceAvailable=" + adultPlaceAvailable +
+                ", childPlaceAvailable=" + childPlaceAvailable +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.example.sda.travelagencyservice.controller;
 
 
+import com.example.sda.travelagencyservice.dto.UserDto;
 import com.example.sda.travelagencyservice.model.User;
 import com.example.sda.travelagencyservice.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +24,21 @@ public class UserController {
         this.userDetailServiceImpl = userDetailServiceImpl;
     }
 
-    @GetMapping("/")
-    public String showMainPage(Principal principal, Model model) {
-        if (principal != null){
-            model.addAttribute("username", principal.getName());
-        } else{
-            model.addAttribute("username", "nieznajomy");
-        }
-
-        return "index";
-    }
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
+    public String login(Model model) {
+        model.addAttribute("user",new UserDto());
         return "login";
     }
 
     @GetMapping("/sign-up")
     public String getSignUpForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
         return "sign-up";
     }
 
     @PostMapping("/register")
-    public String saveUserSignUpForm(User user, BindingResult bindingResult) {
+    public String saveUserSignUpForm(@ModelAttribute("user") UserDto user, BindingResult bindingResult) {
         User existing = userDetailServiceImpl.findByUsername(user.getUsername());
         if (existing!=null){
             bindingResult.rejectValue("username",null,"There is already an account registered with that username");

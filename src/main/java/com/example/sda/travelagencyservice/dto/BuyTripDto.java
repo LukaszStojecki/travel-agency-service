@@ -5,20 +5,31 @@ import com.example.sda.travelagencyservice.model.User;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 public class BuyTripDto {
 
+    private Long id;
     private BigDecimal price;
     private User userId;
     private List<Trip> trips;
 
-    public BuyTripDto(BigDecimal price, User userId, List<Trip> trips) {
+    public BuyTripDto(Long id, BigDecimal price, User userId, List<Trip> trips) {
+        this.id = id;
         this.price = price;
         this.userId = userId;
         this.trips = trips;
     }
 
     public BuyTripDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getPrice() {

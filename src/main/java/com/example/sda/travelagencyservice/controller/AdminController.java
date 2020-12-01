@@ -1,9 +1,6 @@
 package com.example.sda.travelagencyservice.controller;
 
 
-import com.example.sda.travelagencyservice.dto.AirportDto;
-import com.example.sda.travelagencyservice.dto.CityDto;
-import com.example.sda.travelagencyservice.dto.HotelDto;
 import com.example.sda.travelagencyservice.dto.TripDto;
 import com.example.sda.travelagencyservice.model.Airport;
 import com.example.sda.travelagencyservice.model.City;
@@ -37,20 +34,13 @@ public class AdminController {
         this.hotelService = hotelService;
     }
 
-//    @GetMapping("/admin/panel")
-//    public String readAllTrips(Model model) {
-//        List<Trip> trips = tripService.getAllTrips();
-//        model.addAttribute("trips", trips);
-//        return "/admin/panel";
-//    }
-
     @GetMapping("/panel")
-    public String getPanel( Trip trip,Model model) {
+    public String getPanel(Model model) {
         model.addAttribute("addTrip", new Trip());
         return "/panel";
     }
     @GetMapping("/panel/add")
-    public String showTrip( Trip trip,Model model) {
+    public String showTrip(Model model) {
         List<Airport> airports = airportService.getAllAirports();
         List<City> cities = cityService.getAllCities();
         List<Hotel> hotels = hotelService.getAllHotels();
@@ -60,58 +50,9 @@ public class AdminController {
         model.addAttribute("hotelsList",hotels);
         return "/addTrip";
     }
-
     @PostMapping("/panel/add")
     public String addNewTrip(@ModelAttribute("addTrip") TripDto tripDto, Model model) {
-        model.addAttribute("addTrip", tripDto);
-        tripService.createTrip(tripDto);
+        tripService.mapDtoToEntity(tripDto);
         return "redirect:/panel";
     }
-
-    @GetMapping("/panel/add/airport")
-    public String showAddAirportForm(Model model) {
-        //List<City> cityList = cityService.getAllCities();
-        //model.addAttribute("cities",cityList);
-        model.addAttribute("addAirport", new Airport());
-        return "addAirport";
-    }
-
-    @PostMapping("/panel/add/airport")
-    public String addNewAirport(@ModelAttribute(name = "addAirport") AirportDto airportDto, Model model) {
-        model.addAttribute("addAirport", airportDto);
-        airportService.addAirports(airportDto);
-        return "redirect:/panel";
-    }
-
-    @GetMapping("/panel/add/city")
-    public String showAddCityForm(Model model) {
-        //List<City> cityList = cityService.getAllCities();
-        //model.addAttribute("cities",cityList);
-        model.addAttribute("addCity", new City());
-        return "addCity";
-    }
-
-    @PostMapping("/panel/add/city")
-    public String addNewCity(@ModelAttribute(name = "addCity") CityDto cityDto, Model model) {
-        model.addAttribute("addCity", cityDto);
-        cityService.addNewCity(cityDto);
-        return "redirect:/panel";
-    }
-
-    @GetMapping("/panel/add/hotel")
-    public String showAddHotelForm(Model model) {
-        //List<City> cityList = cityService.getAllCities();
-        //model.addAttribute("cities",cityList);
-        model.addAttribute("addHotel", new Hotel());
-        return "addHotel";
-    }
-
-    @PostMapping("/panel/add/hotel")
-    public String addNewHotel(@ModelAttribute(name = "addHotel") HotelDto hotelDto, Model model) {
-        model.addAttribute("addHotel", hotelDto);
-        hotelService.addNewHotel(hotelDto);
-        return "redirect:/panel";
-    }
-
-
 }

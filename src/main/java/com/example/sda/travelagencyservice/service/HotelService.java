@@ -12,21 +12,27 @@ import java.util.List;
 public class HotelService {
 
     private HotelRepository hotelRepository;
+    private CityService cityService;
 
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, CityService cityService) {
         this.hotelRepository = hotelRepository;
+        this.cityService = cityService;
     }
 
     public List<Hotel> getAllHotels() {
         return hotelRepository.findAll();
     }
 
-    public void addNewHotel(HotelDto hotelDto) {
+    public Hotel addNewHotel(HotelDto hotelDto) {
         Hotel hotel = new Hotel();
+        hotel.setId(hotelDto.getId());
         hotel.setName(hotelDto.getName());
-        hotel.setCity(hotelDto.getCityId());
+        hotel.setCity(cityService.findCityById(hotelDto.getCityId()));
         hotel.setDescription(hotel.getDescription());
         hotel.setRating(hotelDto.getRating());
-        hotelRepository.save(hotel);
+        return hotelRepository.save(hotel);
+    }
+    public Hotel findById(Long hotelID) {
+        return hotelRepository.getOne(hotelID);
     }
 }

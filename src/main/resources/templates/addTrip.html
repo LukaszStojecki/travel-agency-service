@@ -1,113 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Travel</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/fonts/simple-line-icons.min.css}">
 </head>
 <body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
+    <div class="container"><a class="navbar-brand logo" href="#"></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only"></span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Zaloguj</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
+                </li>
 
-<h1>Add new Trip:</h1>
-<form method="post" th:action="@{/panel/add}" th:object="${addTrip}">
-    <table>
-        <tr>
-            <td>Select City from:</td>
-            <td>
-                <select th:field="*{cityFrom}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="dropCitiesForm: ${citiesList}"
-                            th:value="${dropCitiesForm.id}"
-                            th:text="${dropCitiesForm.name}">Cities</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Select Airport from:</td>
-            <td>
-                <select th:field="*{airportFrom}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="dropAirportsFrom: ${airportsList}"
-                            th:value="${dropAirportsFrom.id}"
-                            th:text="${dropAirportsFrom.name}">Airport</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Select City where:</td>
-            <td>
-                <select th:field="*{cityWhere}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="dropCitiesForm: ${citiesList}"
-                            th:value="${dropCitiesForm.id}"
-                            th:text="${dropCitiesForm.name}">Cities</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Select Hotel where:</td>
-            <td>
-                <select th:field="*{hotelWhere}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="hotel: ${hotelsList}"
-                            th:value="${hotel.id}"
-                            th:text="${hotel.description}">Hotel</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Select Airport where:</td>
-            <td>
-                <select th:field="*{airportWhere}">
-                    <option value="">Nothing selected</option>
-                    <option th:each="dropAirportsFrom: ${airportsList}"
-                            th:value="${dropAirportsFrom.id}"
-                            th:text="${dropAirportsFrom.name}">Airport</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Start Date:</td>
-            <td><input type='date' th:field="*{departureDate}" /></td>
-        </tr>
-        <tr>
-            <td>End date:</td>
-            <td><input type='date' th:field="*{arrivalDate}" /></td>
-        </tr>
-        <tr>
-            <td>Days:</td>
-            <td><input type='text' th:field="*{days}" /></td>
-        </tr>
-        <tr>
-            <td>Accomodation:</td>
-            <td>
-                <select th:field="*{accomodation}" th:id="accomodation">
-                    <option value="">Nothing selected</option>
-                    <option th:each="accomodation: ${T(com.example.sda.travelagencyservice.model.Accomodation).values()}" th:value="${accomodation}" th:text="${accomodation}">Accomodation</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Price for adult:</td>
-            <td><input th:type="text" th:field="*{adultPrice}" /></td>
-        </tr>
-        <tr>
-            <td>Price for child:</td>
-            <td><input th:type="text" th:field="*{childPrice}" /></td>
-        </tr>
-        <tr>
-            <td>Promotion:</td>
-            <td><input type='checkbox' th:field="*{promoted}" /></td>
-        </tr>
-        <tr>
-            <td>Available place for adult:</td>
-            <td><input th:type="text" th:field="*{adultPlaceAvailable}" /></td>
-        </tr>
-        <tr>
-            <td>Available place for child:</td>
-            <td><input th:type="text" th:field="*{childPlaceAvailable}" /></td>
-        </tr>
-    </table>
-    <input type="submit" value="post">
-</form>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/sign-up}">Rejestracja</a>
 
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/panel}">Panel Administratora</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page contact-us-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Nowa wycieczka</h2>
+            </div>
+            <form method="post" th:action="@{/panel/add}" th:object="${addTrip}">
+                <div class="form-group"><label><strong>Miasto - Wylot</strong></label>
+
+                    <select class="form-control" th:field="*{cityFrom}">
+                            <option th:each="city: ${citiesList}" th:text="${city.name}" th:value="${city.id}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group"><label><strong>Lotnisko - Wylot</strong></label>
+                    <select class="form-control" th:field="*{airportFrom}">
+                            <option th:each="airport: ${airportsList}" th:text="${airport.name}"
+                                    th:value="${airport.id}" selected=""></option>
+                    </select>
+                </div>
+
+                <div class="form-group"><label><strong>Miasto - Przylot</strong></label>
+
+                    <select class="form-control" th:field="*{cityWhere}">
+                            <option th:each="city: ${citiesList}" th:text="${city.name}" th:value="${city.id}"
+                                    selected=""></option>
+                    </select>
+
+                    <div class="form-group"><label><strong>Lotnisko - Wylot</strong></label>
+                        <select class="form-control" th:field="*{airportWhere}">
+                                <option th:each="airport: ${airportsList}" th:text="${airport.name}"
+                                        th:value="${airport.id}" selected=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group"><label><strong>Hotel</strong></label>
+
+                    <select class="form-control" th:field="*{hotelWhere}">
+                            <option th:each="hotel: ${hotelsList}" th:text="${hotel.name}" th:value="${hotel.id}"
+                                    selected=""></option>
+                    </select>
+                </div>
+                <label><strong>Data Wylotu</strong></label>
+                <input class="form-control" type="date" name="startDate"><label>
+                <strong>Data Przylotu</strong></label>
+                <input class="form-control" type="date" name="endDate">
+                <label><strong>Liczba dni</strong></label>
+                <input class="form-control" type="text" name="days"><label>
+
+                <label><strong>Wyżywienie</strong><br></label>
+                <select class="form-control" th:field="*{accomodation}" th:id="accomodation">
+                    <optgroup label="This is a group">
+                        <option th:each="accomodation: ${T(com.example.sda.travelagencyservice.model.Accomodation).values()}"
+                                th:value="${accomodation}" th:text="${accomodation}">Accomodation
+                        </option>
+                    </optgroup>
+                </select>
+                <label><strong>Cena dorosły</strong><br></label>
+                <input class="form-control" type="number" th:field="*{adultPrice}">
+                <label><strong>Cena dziecko</strong><br></label>
+                <input class="form-control" type="number" th:field="*{childPrice}">
+                <div class="form-check"><input class="form-check-input" type="checkbox" th:field="*{promoted}"
+                                               id="isPromoted">
+                    <label class="form-check-label" for="isPromoted">Wycieczka promowana</label>
+                </div>
+                <label><strong>Ilość miejsc dla dorosłych</strong><br></label>
+                <input class="form-control" type="number" th:field="*{adultPlaceAvailable}">
+                <label><strong>Ilość miejsc dla dzieci</strong><br></label>
+                <input class="form-control" type="number" th:field="*{childPlaceAvailable}">
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Dodaj wycieczkę</button>
+                </div>
+            </label>
+            </form>
+        </div>
+    </section>
+</main>
+<a href="/" th:href="@{/}">Powrót do strony głównej</a>
+<footer class="page-footer dark">
+    <div class="footer" align="center">
+        <p>© 2020 Copyright</p>
+    </div>
+</footer>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/script.min.js}"></script>
 </body>
 </html>

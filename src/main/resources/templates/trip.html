@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/assets/fonts/simple-line-icons.min.css}">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
+    <div class="container"><a class="navbar-brand logo" href="#"></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only"></span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Zaloguj</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
+                </li>
+
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/register}">Rejestracja</a>
+
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" th:href="@{/panel}">Panel Administratora</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page">
+    <section class="clean-block features">
+        <div class="container">
+            <h2 class="text-info" th:text="|Przylot do: ${trip.cityWhere.name}|"></h2>
+            <div class="block-heading">
+
+                <span th:text="|Wylot: ${trip.cityFrom.name}|"></span>
+                <br>
+                <span th:text="|Hotel: ${trip.hotelWhere.name}|"></span></th>
+                <br>
+                <span th:text="|Start: ${trip.startDate}|"></span>
+                <br>
+                <span th:text="|Koniec: ${trip.endDate}|"></span>
+                <br>
+                <span th:text="|Ilośc dni: ${trip.days}|"></span>
+                <br>
+                <span th:text="|Kraj: ${trip.cityFrom.country.name}|"></span>
+                <br>
+                <span th:text="|Lotnisko: ${trip.airportFrom.name}|"> </span>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="page-footer dark">
+    <div class="footer-copyright">
+        <p>© 2020 Copyright </p>
+    </div>
+</footer>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/script.min.js}"></script>
+</body>
+
+</html>
