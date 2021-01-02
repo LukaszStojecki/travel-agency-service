@@ -35,4 +35,7 @@ public class HotelService {
     public Hotel findById(Long hotelID) {
         return hotelRepository.getOne(hotelID);
     }
+    public Hotel findHotelByName(String name){
+        return hotelRepository.findHotelByName(name);
+    }
 }

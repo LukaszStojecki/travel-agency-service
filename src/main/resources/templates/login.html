@@ -30,9 +30,9 @@
                 </li>
 
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
-                    <a class="nav-link" th:href="@{/register}">Rejestracja</a>
+                    <a class="nav-link" th:href="@{/sign-up}">Rejestracja</a>
 
-                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Strony Admina
                     </a>

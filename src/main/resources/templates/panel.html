@@ -51,11 +51,54 @@
                 <a href="/panel/add/hotel">Dodaj nowy hotel</a>
                 <br>
                 <a href="/panel/add/country">Dodaj nowy kraj</a>
-                <br>
             </form>
         </div>
     </section>
 </main>
+<table class="table table-bordered" width="90%" id="dataTable" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Miasto - Wylot</th>
+        <th>Lotnisko - Wylot</th>
+        <th>Miasto - Przylot</th>
+        <th>Lotnisko - Przylot</th>
+        <th>Hotel</th>
+        <th>Termin wyjazdu</th>
+        <th>Termin powrotu</th>
+        <th>Ilość dni</th>
+        <th>Wyżywienie</th>
+        <th>Cena za dorosłego</th>
+        <th>Cena za dziecko</th>
+        <th>Promocja</th>
+        <th>Ilość miejsc dla dorosłych</th>
+        <th>Ilość miejsc dla dzieci</th>
+        <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trip : ${allTrip}">
+<!--        <td th:hidden="${trip.id}"></td>-->
+        <td th:text="${trip.cityFrom?.name}"></td>
+        <td th:text="${trip.airportFrom?.name}"></td>
+        <td th:text="${trip.cityWhere?.name}"></td>
+        <td th:text="${trip.airportWhere?.name}"></td>
+        <td th:text="${trip.hotelWhere?.name}"></td>
+        <td th:text="${trip.startDate}"></td>
+        <td th:text="${trip.endDate}"></td>
+        <td th:text="${trip.days}"></td>
+        <td th:text="${trip.accomodation}"></td>
+        <td th:text="${trip.adultPrice}"></td>
+        <td th:text="${trip.childPrice}"></td>
+        <td th:text="${trip.promoted}"></td>
+        <td th:text="${trip.adultPlaceAvailable}"></td>
+        <td th:text="${trip.childPlaceAvailable}"></td>
+        <td>
+            <button type="button" class="btn btn-secondary"><a th:href="@{/panel/edit/{id}(id=${trip.id})}">Edytuj Wycieczkę!</a>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
 <a href="/" th:href="@{/}">Powrót do storny głównej</a>
 <footer class="page-footer dark">
     <div class="footer-copyright">

@@ -38,34 +38,36 @@
     <section class="clean-block clean-form dark">
         <div class="container">
             <div class="block-heading">
-                <h2 class="text-info">Nowa wycieczka</h2>
+                <h2 class="text-info">Edytuj Wycieczkę</h2>
             </div>
-            <form method="post" th:action="@{/panel/add}" th:object="${addTrip}">
+            <form method="post" th:action="@{/panel/edit/{id}(id=${editTrip.id})}" th:object="${editTrip}">
+
+                <div class="form-group" type="hidden" th:field="*{id}"></div>
                 <div class="form-group"><label><strong>Miasto - Wylot</strong></label>
 
                     <select class="form-control" th:field="*{cityFrom}">
-                            <option th:each="city: ${citiesList}" th:text="${city.name}" th:value="${city.id}"></option>
+                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"></option>
                     </select>
                 </div>
 
                 <div class="form-group"><label><strong>Lotnisko - Wylot</strong></label>
                     <select class="form-control" th:field="*{airportFrom}">
-                            <option th:each="airport: ${airportsList}" th:text="${airport.name}"
-                                    th:value="${airport.id}" selected=""></option>
+                        <option th:each="airport: ${airports}" th:text="${airport.name}"
+                                th:value="${airport.id}" selected=""></option>
                     </select>
                 </div>
 
                 <div class="form-group"><label><strong>Miasto - Przylot</strong></label>
 
                     <select class="form-control" th:field="*{cityWhere}">
-                            <option th:each="city: ${citiesList}" th:text="${city.name}" th:value="${city.id}"
-                                    selected=""></option>
+                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"
+                                selected=""></option>
                     </select>
 
                     <div class="form-group"><label><strong>Lotnisko - Przylot</strong></label>
                         <select class="form-control" th:field="*{airportWhere}">
-                                <option th:each="airport: ${airportsList}" th:text="${airport.name}"
-                                        th:value="${airport.id}" selected=""></option>
+                            <option th:each="airport: ${airports}" th:text="${airport.name}"
+                                    th:value="${airport.id}" selected=""></option>
                         </select>
                     </div>
                 </div>
@@ -73,16 +75,16 @@
                 <div class="form-group"><label><strong>Hotel</strong></label>
 
                     <select class="form-control" th:field="*{hotelWhere}">
-                            <option th:each="hotel: ${hotelsList}" th:text="${hotel.name}" th:value="${hotel.id}"
-                                    selected=""></option>
+                        <option th:each="hotel: ${hotels}" th:text="${hotel.name}" th:value="${hotel.id}"
+                                selected=""></option>
                     </select>
                 </div>
                 <label><strong>Data Wylotu</strong></label>
-                <input class="form-control" type="date" name="startDate"><label>
+                <input class="form-control" type="date" th:field="*{startDate}"><label>
                 <strong>Data Przylotu</strong></label>
-                <input class="form-control" type="date" name="endDate">
+                <input class="form-control" type="date" th:field="*{endDate}">
                 <label><strong>Liczba dni</strong></label>
-                <input class="form-control" type="text" name="days"><label>
+                <input class="form-control" type="text" th:field="*{days}"><label>
 
                 <label><strong>Wyżywienie</strong><br></label>
                 <select class="form-control" th:field="*{accomodation}" th:id="accomodation">
@@ -92,9 +94,9 @@
                         </option>
                     </optgroup>
                 </select>
-                <label><strong>Cena dorosły</strong><br></label>
+                <label><strong>Cena za osobę dorosłą</strong><br></label>
                 <input class="form-control" type="number" th:field="*{adultPrice}">
-                <label><strong>Cena dziecko</strong><br></label>
+                <label><strong>Cena za dziecko</strong><br></label>
                 <input class="form-control" type="number" th:field="*{childPrice}">
                 <div class="form-check"><input class="form-check-input" type="checkbox" th:field="*{promoted}"
                                                id="isPromoted">
@@ -105,7 +107,7 @@
                 <label><strong>Ilość miejsc dla dzieci</strong><br></label>
                 <input class="form-control" type="number" th:field="*{childPlaceAvailable}">
                 <div class="form-group">
-                    <button class="btn btn-primary btn-block" type="submit">Dodaj wycieczkę</button>
+                    <button class="btn btn-primary btn-block" type="submit">Edytuj Wycieczkę</button>
                 </div>
             </label>
             </form>

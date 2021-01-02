@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -19,28 +18,19 @@ import java.util.List;
 public class HomeController {
 
     private TripService tripService;
-    private CountryService countryService;
-    private ContinentService continentService;
 
-    public HomeController(TripService tripService, CountryService countryService, ContinentService continentService) {
+    public HomeController(TripService tripService) {
         this.tripService = tripService;
-        this.countryService = countryService;
-        this.continentService = continentService;
     }
 
     @GetMapping("/")
     public String home(Model model){
         List<Trip> trips = tripService.getAllTrips();
         List<Trip> promoted = tripService.getAllPromotedTrips();
-        List<Continent> continents = continentService.getAllContinentsSortedByName();
-        List<Country> countries = countryService.getAllCountriesByName();
-//        List<Trip> tripList = tripService.getTripByDate(startDate,endDate);
+        List<Trip> lastMinuteTrips = tripService.getTripsOrderedByStartDateDesc().subList(0, 3);
         model.addAttribute("triplist",trips);
         model.addAttribute("promotedTrips",promoted);
-        model.addAttribute("continents",continents);
-        model.addAttribute("countries",countries);
-        model.addAttribute("lastminute",tripService.getAllLastMinuteTrip());
-//        model.addAttribute("search",tripList);
+        model.addAttribute("lastminute",lastMinuteTrips);
         return "index";
     }
 }

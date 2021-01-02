@@ -4,6 +4,7 @@ import com.example.sda.travelagencyservice.dto.UserDto;
 import com.example.sda.travelagencyservice.model.Role;
 import com.example.sda.travelagencyservice.model.User;
 import com.example.sda.travelagencyservice.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.singletonList;
 
 
 @Service
@@ -37,7 +42,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         User addUser = new User();
         addUser.setUsername(userDto.getUsername());
         addUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        addUser.setRoles(Collections.singletonList(new Role("USER")));
+        addUser.setRoles((Role.USER));
         userRepository.save(addUser);
     }
 
@@ -52,10 +57,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
+        return singletonList(new SimpleGrantedAuthority("ROLE_" + role.toString()));
     }
 }
 

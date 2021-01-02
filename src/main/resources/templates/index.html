@@ -116,20 +116,19 @@
                 </thead>
                 <tbody>
                 <tr th:each="trip:${lastminute}">
-                    <td th:text="${trip.cityFrom.name}"></td>
+                    <td th:text="${trip.cityFrom?.name}"></td>
                     <td th:text="${trip.adultPrice}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td><a th:href="@{${'/trip/'+ trip.id}}">
                         <button type="button" class="btn btn-dark btn-sm">Pokaż więcej</button>
                     </a></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
     </section>
     <section class="clean-block clean-hero"
-             style="background-image:url(https://www.pieniadzjestkobieta.pl/wp-content/uploads/2017/03/Planowanie-wakacji-jak-robi%C4%87-to-z-g%C5%82ow%C4%85.jpg);color:rgba(9, 22, 25, 0.85);height:230;width:992;">
+             style="background-image:url(https://www.pieniadzjestkobieta.pl/wp-content/uploads/2017/03/Planowanie-wakacji-jak-robi%C4%87-to-z-g%C5%82ow%C4%85.jpg);color:rgba(9,22,25,0.85);height:230;width:992;">
         <div class="text">
             <h3 class="text-center font-weight-bold">Promowane wycieczki</h3><br/>
             <table class="table table-bordered table-striped">
@@ -143,7 +142,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="trip:${promotedTrips}">
-                    <td th:text="${trip.cityFrom.name}"></td>
+                    <td th:text="${trip.cityFrom?.name}"></td>
                     <td th:text="${trip.adultPrice}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td><a th:href="@{${'/trip/'+ trip.id}}">

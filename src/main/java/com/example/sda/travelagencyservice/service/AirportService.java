@@ -37,5 +37,8 @@ public class AirportService {
         return airportRepository.save(airport);
     }
 
+    public Airport findByName(String name) {
+        return airportRepository.findAirportByName(name);
+    }
 
 }
