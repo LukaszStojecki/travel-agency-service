@@ -17,7 +17,13 @@ public class BuyTripDto {
 
     private Long id;
     private BigDecimal price;
-    private User userId;
-    private List<Trip> trips;
+    private Long userId;
+    private String firstName;
+    private String lastName;
+    private String adultsQuantity;
+    private String childQuantity;
+    private String adultsAvailable;
+    private String childAvailable;
+
 
 }
