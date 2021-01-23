@@ -42,7 +42,7 @@ public class AdminController {
     public String getPanel(Model model) {
         List<Trip> allTrips = tripService.getAllTrips();
         model.addAttribute("allTrip", allTrips);
-        return "/panel";
+        return "panel";
     }
 
     @GetMapping("/panel/add")
