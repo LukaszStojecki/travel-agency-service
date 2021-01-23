@@ -5,10 +5,10 @@ import com.example.sda.travelagencyservice.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +16,6 @@ import java.util.List;
 public class BuyTripDto {
 
     private Long id;
-    private BigDecimal price;
-    private Long userId;
     private String firstName;
     private String lastName;
     private String adultsQuantity;

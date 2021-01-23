@@ -82,8 +82,8 @@ public class TripService {
             trip = findTripById(tripDto.getId()).get();
         }
         trip.setCityFrom(cityService.findCityName(tripDto.getCityFrom()));
-        trip.setAirportFrom(airportService.findByName(tripDto.getAirportFrom()));
         trip.setCityWhere(cityService.findCityName(tripDto.getCityWhere()));
+        trip.setAirportFrom(airportService.findByName(tripDto.getAirportFrom()));
         trip.setAirportWhere(airportService.findByName(tripDto.getAirportWhere()));
         trip.setHotelWhere(hotelService.findHotelByName(tripDto.getHotelWhere()));
         trip.setStartDate(LocalDate.parse(tripDto.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-d")));
@@ -102,8 +102,8 @@ public class TripService {
         TripDto tripDto = new TripDto();
         tripDto.setId(trip.getId());
         tripDto.setCityFrom(trip.getCityFrom().getName());
-        tripDto.setAirportFrom(trip.getAirportFrom().getName());
         tripDto.setCityWhere(trip.getCityWhere().getName());
+        tripDto.setAirportFrom(trip.getAirportFrom().getName());
         tripDto.setAirportWhere(trip.getAirportWhere().getName());
         tripDto.setHotelWhere(trip.getHotelWhere().getName());
         tripDto.setStartDate(trip.getStartDate().toString());
