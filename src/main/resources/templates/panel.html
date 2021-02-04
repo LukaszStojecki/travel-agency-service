@@ -77,7 +77,7 @@
     </thead>
     <tbody>
     <tr th:each="trip : ${allTrip}">
-<!--        <td th:hidden="${trip.id}"></td>-->
+        <td th:hidden="${trip.id}"></td>
         <td th:text="${trip.cityFrom?.name}"></td>
         <td th:text="${trip.airportFrom?.name}"></td>
         <td th:text="${trip.cityWhere?.name}"></td>
@@ -93,7 +93,7 @@
         <td th:text="${trip.adultPlaceAvailable}"></td>
         <td th:text="${trip.childPlaceAvailable}"></td>
         <td>
-            <button type="button" class="btn btn-secondary"><a th:href="@{/panel/edit/{id}(id=${trip.id})}">Edytuj Wycieczkę!</a>
+            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a th:href="@{/panel/edit/{id}(id=${trip.id})}">Edytuj Wycieczkę!</a>
             </button>
         </td>
     </tr>

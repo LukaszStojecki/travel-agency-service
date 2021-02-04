@@ -1,12 +1,13 @@
 package com.example.sda.travelagencyservice.controller;
 
-import com.example.sda.travelagencyservice.dto.UserDto;
+import com.example.sda.travelagencyservice.dto.BuyTripDto;
+import com.example.sda.travelagencyservice.model.BuyTrip;
+import com.example.sda.travelagencyservice.model.Trip;
 import com.example.sda.travelagencyservice.service.*;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -19,18 +20,20 @@ public class TripController {
     private CountryService countryService;
     private CityService cityService;
     private HotelService hotelService;
+    private BuyTripService buyTripService;
 
-    public TripController(TripService tripService, CountryService countryService, CityService cityService, HotelService hotelService) {
+    public TripController(TripService tripService, CountryService countryService, CityService cityService, HotelService hotelService, BuyTripService buyTripService) {
         this.tripService = tripService;
         this.countryService = countryService;
         this.cityService = cityService;
         this.hotelService = hotelService;
+        this.buyTripService = buyTripService;
     }
 
 
-    @GetMapping("/trip/{tripId}")
-    public String showDetailsTrip(@PathVariable("tripId") Long tripId, Model model) {
-        model.addAttribute("trip", tripService.findTripById(tripId).get());
+    @GetMapping("/trip/{id}")
+    public String showDetailsTrip(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("trip", tripService.findTripById(id).get());
         return "trip";
     }
 
@@ -40,11 +43,4 @@ public class TripController {
         return "index";
     }
 
-    @GetMapping("/buyTrip/{tripId}")
-    public String buyTrip(@PathVariable("tripId") Long tripId, Model model) {
-        model.addAttribute("user", new UserDto());
-        model.addAttribute("trip",tripService.findTripById(tripId));
-        return "buyTrip";
-    }
-    
 }

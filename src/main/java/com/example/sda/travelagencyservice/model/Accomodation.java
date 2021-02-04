@@ -2,18 +2,13 @@ package com.example.sda.travelagencyservice.model;
 
 
 public enum Accomodation {
-    BB("samo śniadanie"),
-    HB("śniadanie i obiadokolacja"),
-    FB("pełne wyżywienie"),
-    AI("All inclusive"),
-    OV("sam nocleg"),
-    SC("wyżywienie we własnym zakresie");
+    BB,
+    HB,
+    FB,
+    AI,
+    OV,
+    SC
 
-    private String name;
-
-    Accomodation(String name) {
-        this.name = name;
-    }
 }
 
 

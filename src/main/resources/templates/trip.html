@@ -65,7 +65,7 @@
                 <br>
                 <span th:text="|Lotnisko: ${trip.airportFrom?.name}|"> </span>
                 <br>
-                <a th:href="@{'/buyTrip/' + ${trip.id}}">Kup Wycieczkę</a>
+                <a sec:authorize="hasRole('USER')" th:href="@{'/buyTrip/' + ${trip.id}}">Kup Wycieczkę</a>
                 <br>
                 <button  sec:authorize="hasRole('ADMIN')"type="button" class="btn btn-secondary">
                     <a th:href="@{'/panel/edit/' + ${trip.id}}">Edytuj Wycieczkę!</a>

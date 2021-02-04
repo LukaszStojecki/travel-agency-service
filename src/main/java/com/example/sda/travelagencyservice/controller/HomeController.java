@@ -27,7 +27,7 @@ public class HomeController {
     public String home(Model model){
         List<Trip> trips = tripService.getAllTrips();
         List<Trip> promoted = tripService.getAllPromotedTrips();
-        List<Trip> lastMinuteTrips = tripService.getTripsOrderedByStartDateDesc().subList(0, 3);
+        List<Trip> lastMinuteTrips = tripService.getTripsOrderedByStartDateDesc();
         model.addAttribute("triplist",trips);
         model.addAttribute("promotedTrips",promoted);
         model.addAttribute("lastminute",lastMinuteTrips);

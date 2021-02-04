@@ -84,10 +84,10 @@
                 <tbody>
                 <tr th:each="trip : ${search}">
                     <td th:text="${trip.id}"></td>
-                    <td th:text="${trip.cityFrom.name}"></td>
-                    <td th:text="${trip.cityWhere.name}"></td>
-                    <td th:text="${trip.airportFrom.name}"></td>
-                    <td th:text="${trip.airportWhere.name}"></td>
+                    <td th:text="${trip.cityFrom?.name}"></td>
+                    <td th:text="${trip.cityWhere?.name}"></td>
+                    <td th:text="${trip.airportFrom?.name}"></td>
+                    <td th:text="${trip.airportWhere?.name}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td th:text="${trip.endDate}"></td>
                     <td th:text="${trip.promoted}"></td>

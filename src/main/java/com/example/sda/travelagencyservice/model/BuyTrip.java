@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -19,10 +19,12 @@ public class BuyTrip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
-    private List<Trip> trip;
+    @ManyToOne
+    private Trip trip;
     @OneToOne
-    private User user;
+    private Customer customer;
     private BigDecimal tripPrice;
+    private BigDecimal adultsQuantity;
+    private BigDecimal childQuantity;
 
 }
