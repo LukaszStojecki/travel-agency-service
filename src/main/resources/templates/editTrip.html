@@ -40,42 +40,42 @@
             <div class="block-heading">
                 <h2 class="text-info">Edytuj Wycieczkę</h2>
             </div>
-            <form method="post" th:action="@{/panel/edit/{id}(id=${editTrip.id})}" th:object="${editTrip}">
+            <form method="post" th:action="@{/panel/edit/{id}(id=${trip.id})}" th:object="${trip}">
 
                 <div class="form-group" type="hidden" th:field="*{id}"></div>
                 <div class="form-group"><label><strong>Miasto - Wylot</strong></label>
 
-                    <select class="form-control" th:field="*{cityFrom}">
-                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"></option>
+                    <select class="form-control" th:field="*{departureCity}">
+                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.name}"></option>
                     </select>
                 </div>
 
                 <div class="form-group"><label><strong>Lotnisko - Wylot</strong></label>
-                    <select class="form-control" th:field="*{airportFrom}">
+                    <select class="form-control" th:field="*{departureAirport}">
                         <option th:each="airport: ${airports}" th:text="${airport.name}"
-                                th:value="${airport.id}" selected=""></option>
+                                th:value="${airport.name}" selected=""></option>
                     </select>
                 </div>
 
                 <div class="form-group"><label><strong>Miasto - Przylot</strong></label>
 
-                    <select class="form-control" th:field="*{cityWhere}">
-                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.id}"
+                    <select class="form-control" th:field="*{arrivalCity}">
+                        <option th:each="city: ${cities}" th:text="${city.name}" th:value="${city.name}"
                                 selected=""></option>
                     </select>
 
                     <div class="form-group"><label><strong>Lotnisko - Przylot</strong></label>
-                        <select class="form-control" th:field="*{airportWhere}">
+                        <select class="form-control" th:field="*{arrivalAirport}">
                             <option th:each="airport: ${airports}" th:text="${airport.name}"
-                                    th:value="${airport.id}" selected=""></option>
+                                    th:value="${airport.name}" selected=""></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group"><label><strong>Hotel</strong></label>
 
-                    <select class="form-control" th:field="*{hotelWhere}">
-                        <option th:each="hotel: ${hotels}" th:text="${hotel.name}" th:value="${hotel.id}"
+                    <select class="form-control" th:field="*{hotel}">
+                        <option th:each="hotel: ${hotels}" th:text="${hotel.name}" th:value="${hotel.name}"
                                 selected=""></option>
                     </select>
                 </div>

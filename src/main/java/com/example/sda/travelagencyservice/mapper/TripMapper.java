@@ -1,76 +1,52 @@
-//package com.example.sda.travelagencyservice.mapper;
-//
-//
-//import com.example.sda.travelagencyservice.dto.TripDto;
-//import com.example.sda.travelagencyservice.model.*;
-//import com.example.sda.travelagencyservice.repository.TripRepository;
-//import org.springframework.stereotype.Component;
-//
-//
-//import java.text.SimpleDateFormat;
-//import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Component
-//public class TripMapper {
-//
-//    private TripRepository tripRepository;
-//
-//    public TripDto mapTripToDto(Trip trip) {
-//        TripDto tripDto = new TripDto();
-//        tripDto.setId(trip.getId());
-//        tripDto.setCityFrom(trip.getCityFrom().getName());
-//        tripDto.setAirportFrom(trip.getAirportFrom().getName());
-//        tripDto.setCityWhere(trip.getCityWhere().getName());
-//        tripDto.setAirportWhere(trip.getAirportWhere().getName());
-//        tripDto.setHotelWhere(trip.getHotelWhere().getName());
-//        tripDto.setStartDate(new SimpleDateFormat("dd-MM-yyyy").format(trip.getStartDate()));
-//        tripDto.setEndDate(new SimpleDateFormat("dd-MM-yyyy").format(trip.getEndDate()));
-//        tripDto.setDays(trip.getDays());
-//        tripDto.setAccomodation(String.valueOf(trip.getAccomodation()));
-//        tripDto.setAdultPrice(trip.getAdultPrice());
-//        tripDto.setChildPrice(trip.getChildPrice());
-//        tripDto.setPromoted(trip.isPromoted());
-//        tripDto.setAdultPlaceAvailable(trip.getAdultPlaceAvailable());
-//        tripDto.setChildPlaceAvailable(trip.getChildPlaceAvailable());
-//
-//        return tripDto;
-//    }
-//
-////    public static List<TripDto> mapTripListToDtoList(List<Trip> tripList) {
-////
-////        List<TripDto> tripDtos = new ArrayList<>();
-////
-////        for (Trip trip : tripList) {
-////            tripDtos.add(mapTripToDto(trip));
-////        }
-////
-////        return tripDtos;
-////    }
-//
-//    public Trip mapTripDtoToEntity(TripDto tripDto, City city, Airport airport, Hotel hotel) {
-//
-//        Trip trip;
-//        if (tripDto.getId() == null) {
-//            trip = new Trip();
-//        } else {
-//            trip = tripRepository.getOne(tripDto.getId());
-//        }
-//        trip.setCityFrom(city);
-//        trip.setAirportFrom(airport);
-//        trip.setCityWhere(city);
-//        trip.setAirportWhere(airport);
-//        trip.setHotelWhere(hotel);
-//        trip.setStartDate(LocalDate.parse(tripDto.getStartDate()));
-//        trip.setEndDate(LocalDate.parse(tripDto.getEndDate()));
-//        trip.setDays(tripDto.getDays());
-//        trip.setAccomodation(Accomodation.valueOf(tripDto.getAccomodation()));
-//        trip.setAdultPrice(tripDto.getAdultPrice());
-//        trip.setChildPrice(tripDto.getChildPrice());
-//        trip.setPromoted(tripDto.isPromoted());
-//        trip.setAdultPlaceAvailable(tripDto.getAdultPlaceAvailable());
-//        trip.setChildPlaceAvailable(tripDto.getChildPlaceAvailable());
-//        return trip;
-//    }
-//}
+package com.example.sda.travelagencyservice.mapper;
+
+import com.example.sda.travelagencyservice.dto.TripDto;
+import com.example.sda.travelagencyservice.model.*;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+
+@Component
+public class TripMapper {
+
+    public Trip mapToTrip(TripDto tripDto, City arrivalCity, City departureCity,
+                          Airport departureAirport, Airport arrivalAirport, Hotel hotel){
+        return Trip.builder()
+                .departureCity(departureCity)
+                .arrivalCity(arrivalCity)
+                .departureAirport(departureAirport)
+                .arrivalAirport(arrivalAirport)
+                .hotel(hotel)
+                .startDate(LocalDate.parse(tripDto.getStartDate()))
+                .endDate(LocalDate.parse(tripDto.getEndDate()))
+                .days(tripDto.getDays())
+                .accomodation(Accomodation.valueOf(tripDto.getAccomodation()))
+                .adultPrice(tripDto.getAdultPrice())
+                .childPrice(tripDto.getChildPrice())
+                .adultPlaceAvailable(tripDto.getAdultPlaceAvailable())
+                .childPlaceAvailable(tripDto.getChildPlaceAvailable())
+                .isPromoted(tripDto.isPromoted())
+                .build();
+    }
+
+    public TripDto mapTripEntityToDto(Trip trip){
+        return TripDto.builder()
+                .id(trip.getId())
+                .departureCity(trip.getDepartureCity().getName())
+                .arrivalCity(trip.getArrivalCity().getName())
+                .departureAirport(trip.getDepartureAirport().getName())
+                .arrivalAirport(trip.getArrivalAirport().getName())
+                .hotel(trip.getHotel().getName())
+                .days(trip.getDays())
+                .accomodation(trip.getAccomodation().toString())
+                .adultPrice(trip.getAdultPrice())
+                .childPrice(trip.getChildPrice())
+                .adultPlaceAvailable(trip.getAdultPlaceAvailable())
+                .childPlaceAvailable(trip.getChildPlaceAvailable())
+                .startDate(trip.getStartDate().toString())
+                .endDate(trip.getEndDate().toString())
+                .isPromoted(trip.isPromoted())
+                .build();
+    }
+
+}

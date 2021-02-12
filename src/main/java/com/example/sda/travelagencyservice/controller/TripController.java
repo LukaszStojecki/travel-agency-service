@@ -1,13 +1,10 @@
 package com.example.sda.travelagencyservice.controller;
 
-import com.example.sda.travelagencyservice.dto.BuyTripDto;
-import com.example.sda.travelagencyservice.model.BuyTrip;
-import com.example.sda.travelagencyservice.model.Trip;
+import com.example.sda.travelagencyservice.exception.NotFoundException;
 import com.example.sda.travelagencyservice.service.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,23 +14,16 @@ import java.time.LocalDate;
 public class TripController {
 
     private TripService tripService;
-    private CountryService countryService;
-    private CityService cityService;
-    private HotelService hotelService;
-    private BuyTripService buyTripService;
 
-    public TripController(TripService tripService, CountryService countryService, CityService cityService, HotelService hotelService, BuyTripService buyTripService) {
+
+    public TripController(TripService tripService) {
         this.tripService = tripService;
-        this.countryService = countryService;
-        this.cityService = cityService;
-        this.hotelService = hotelService;
-        this.buyTripService = buyTripService;
     }
 
 
     @GetMapping("/trip/{id}")
-    public String showDetailsTrip(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("trip", tripService.findTripById(id).get());
+    public String showDetailsTrip(@PathVariable("id") Long id, Model model) throws NotFoundException {
+        model.addAttribute("trip", tripService.findById(id));
         return "trip";
     }
 

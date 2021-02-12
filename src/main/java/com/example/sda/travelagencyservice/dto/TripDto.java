@@ -1,18 +1,24 @@
 package com.example.sda.travelagencyservice.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TripDto {
 
     private Long id;
-    private String cityFrom;
-    private String cityWhere;
-    private String airportFrom;
-    private String airportWhere;
-    private String hotelWhere;
+    private String departureCity;
+    private String arrivalCity;
+    private String departureAirport;
+    private String arrivalAirport;
+    private String hotel;
     private String startDate;
     private String endDate;
     private Integer days;

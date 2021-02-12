@@ -1,12 +1,12 @@
 package com.example.sda.travelagencyservice.controller;
 
 
+import com.example.sda.travelagencyservice.dto.AirportDto;
+import com.example.sda.travelagencyservice.dto.CityDto;
+import com.example.sda.travelagencyservice.dto.HotelDto;
 import com.example.sda.travelagencyservice.dto.TripDto;
-import com.example.sda.travelagencyservice.model.Airport;
-import com.example.sda.travelagencyservice.model.City;
-import com.example.sda.travelagencyservice.model.Hotel;
-import com.example.sda.travelagencyservice.model.Trip;
-
+import com.example.sda.travelagencyservice.exception.BadRequestException;
+import com.example.sda.travelagencyservice.exception.NotFoundException;
 import com.example.sda.travelagencyservice.service.AirportService;
 import com.example.sda.travelagencyservice.service.CityService;
 import com.example.sda.travelagencyservice.service.HotelService;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Controller
@@ -40,16 +40,16 @@ public class AdminController {
 
     @GetMapping("/panel")
     public String getPanel(Model model) {
-        List<Trip> allTrips = tripService.getAllTrips();
+        List<TripDto> allTrips = tripService.getAllTrip();
         model.addAttribute("allTrip", allTrips);
         return "panel";
     }
 
     @GetMapping("/panel/add")
     public String showTrip(Model model) {
-        List<Airport> airports = airportService.getAllAirports();
-        List<City> cities = cityService.getAllCities();
-        List<Hotel> hotels = hotelService.getAllHotels();
+        List<AirportDto> airports = airportService.getAllAirports();
+        List<CityDto> cities = cityService.getAllCities();
+        List<HotelDto> hotels = hotelService.getAllHotel();
         model.addAttribute("addTrip", new TripDto());
         model.addAttribute("airportsList", airports);
         model.addAttribute("citiesList", cities);
@@ -58,31 +58,37 @@ public class AdminController {
     }
 
     @PostMapping("/panel/add")
-    public String addNewTrip(@ModelAttribute("addTrip") TripDto tripDto) {
-        tripService.mapDtoToEntity(tripDto);
+    public String createTrip(@ModelAttribute("addTrip") TripDto tripDto) throws BadRequestException {
+        System.out.println("Dane: " + tripDto);
+        tripService.saveTrip(tripDto);
         return "redirect:/panel";
     }
 
     @GetMapping("/panel/edit/{id}")
-    public String editTripById(@PathVariable("id") Long id, Model model) {
-        Trip trip = tripService.findTripById(id).get();
-        if (tripService.findTripById(id).isPresent()){
-            model.addAttribute("editTrip", tripService.mapTripToDto(trip));
-            model.addAttribute("cities", cityService.getAllCities());
-            model.addAttribute("airports", airportService.getAllAirports());
-            model.addAttribute("hotels", hotelService.getAllHotels());
-            return "editTrip";
-        }
-        return "redirect:/panel/add";
+    public String updateTrip(@PathVariable("id") Long id, Model model) throws NotFoundException {
+        TripDto trip = tripService.findById(id);
+        System.out.println("before: " + trip);
+        List<CityDto> cities = cityService.getAllCities();
+        List<AirportDto> airports = airportService.getAllAirports();
+        List<HotelDto> hotels = hotelService.getAllHotel();
+        model.addAttribute("cities", cities);
+        model.addAttribute("trip", trip);
+        model.addAttribute("airports",airports);
+        model.addAttribute("hotels",hotels);
+        return "editTrip";
     }
 
     @PostMapping("/panel/edit/{id}")
-    public String editTripPost(@PathVariable("id") Long id, TripDto tripDto) {
-//        tripDto.setId(id);
-        Trip trip = tripService.mapDtoToEntity(tripDto);
-        trip.setId(id);
-        tripService.addNewTrip(trip);
-        return "redirect:/trip/{id}";
+    public String updateTrip(@PathVariable(name = "id") Long id, @ModelAttribute("trip") TripDto tripDto) throws NotFoundException, BadRequestException {
+        tripService.updateTrip(id, tripDto);
+        System.out.println("after: " + tripDto);
+        return "redirect:/panel";
+    }
+
+    @GetMapping("/panel/delete/{id}")
+    public String deleteTripById(@PathVariable Long id) {
+        tripService.deleteById(id);
+        return "redirect:/panel";
     }
 
 }

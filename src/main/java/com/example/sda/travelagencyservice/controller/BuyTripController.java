@@ -1,6 +1,8 @@
 package com.example.sda.travelagencyservice.controller;
 
 import com.example.sda.travelagencyservice.dto.BuyTripDto;
+import com.example.sda.travelagencyservice.dto.TripDto;
+import com.example.sda.travelagencyservice.exception.NotFoundException;
 import com.example.sda.travelagencyservice.model.BuyTrip;
 import com.example.sda.travelagencyservice.model.Trip;
 import com.example.sda.travelagencyservice.service.BuyTripService;
