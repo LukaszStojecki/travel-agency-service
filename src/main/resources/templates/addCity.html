@@ -2,24 +2,28 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add trip</title>
 </head>
 <body>
 
-<h3>Dodaj miasto</h3>
-<form method="post" th:action="@{/panel/add/city}" th:object="${addCity}">
+<h1>Nowe miasto</h1>
 
-    <div class="form-group"><label><strong>Kraj</strong></label>
+<form th:action="@{/panel/add/city}" th:object="${city}" method="post">
 
-        <select th:field="*{countryId}">
-                <option th:each="country: ${countries}" th:text="${country.name}"
-                        th:value="${country.id}"></option>
-        </select>
-    </div>
-    <label><strong>Nazwa</strong></label>
-    <input type="text" name="name">
-    <div class="form-group">
-        <button class="btn btn-primary btn-block" type="submit">Dodaj</button>
+    <div class="row">
+        <div class="form-group col-md-8">
+            <label class="col-form-label">Nazwa Miasta: </label> <input type="text" th:field="*{name}" class="form-control">
+        </div>
+        <div class="form-group col-md-8">
+            <label for="countries">Nazwa Kraju:</label>
+            <select class="form-control" id="countries" th:field="*{countryId}">
+                <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.name}"></option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <input type="submit" class="btn btn-primary" value="Dodaj miasto">
+        </div>
+        <div class="form-group col-md-8"></div>
     </div>
 </form>
 

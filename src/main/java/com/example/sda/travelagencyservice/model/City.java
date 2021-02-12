@@ -2,6 +2,7 @@ package com.example.sda.travelagencyservice.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class City {
 
     @Id
@@ -22,9 +24,9 @@ public class City {
     private String name;
     @ManyToOne
     private Country country;
-    @OneToMany(mappedBy = "cityFrom")
+    @OneToMany(mappedBy = "departureCity")
     private List<Trip> fromTripList;
-    @OneToMany(mappedBy = "cityWhere")
+    @OneToMany(mappedBy = "arrivalCity")
     private List<Trip> whereTripList;
     @OneToMany(mappedBy = "city")
     private List<Hotel> hotelList;
