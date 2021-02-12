@@ -34,38 +34,26 @@
         </div>
     </div>
 </nav>
-<main class="page contact-us-page">
-    <section class="clean-block clean-form dark">
-        <div class="container">
-            <div class="block-heading">
-                <h2 class="text-info">Dodaj nowe lotnisko: </h2>
-            </div>
 
-            <form th:action="@{/panel/add/airport}" th:object="${airport}" method="post">
+<h1>Lista lotnisk</h1>
 
-                <div class="row">
-                    <div class="form-group col-md-8">
-                        <label class="col-form-label">Nazwa lotniska: </label> <input type="text" th:field="*{name}"
-                                                                                      class="form-control">
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="cities">Nazwa miasta:</label>
-                        <select class="form-control" id="cities" th:field="*{cityId}">
-                            <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="submit" class="btn btn-primary" value="Dodaj lotnisko">
-                    </div>
-                    <div class="form-group col-md-8"></div>
-                </div>
-            </form>
-        </div>
-    </section>
-</main>
+<table class="table table-bordered" width="90%" id="dataTable" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nazwa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="airport : ${airportList}">
+        <td th:hidden="${airport.id}"></td>
+        <td th:text="${airport.name}"></td>
+    </tr>
+    </tbody>
+</table>
 <a href="/" th:href="@{/panel}">Powrót do panelu administratora</a>
 <footer class="page-footer dark">
-    <div class="footer" align="center">
+    <div class="footer-copyright">
         <p>© 2020 Copyright</p>
     </div>
 </footer>
