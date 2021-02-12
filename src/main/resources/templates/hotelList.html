@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TripList</title>
+</head>
+<body>
+
+<h1>Lista Hoteli</h1>
+
+<table>
+    <tr th:each="hotel: ${hotelList}">
+        <td th:text="${hotel.id}"></td>
+        <td th:text="${hotel.name}"></td>
+        <td th:text="${hotel.rating}"></td>
+        <td th:text="${hotel.description}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

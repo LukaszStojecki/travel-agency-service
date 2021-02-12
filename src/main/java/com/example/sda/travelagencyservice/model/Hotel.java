@@ -1,6 +1,7 @@
 package com.example.sda.travelagencyservice.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

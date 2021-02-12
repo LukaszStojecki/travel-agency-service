@@ -1,6 +1,7 @@
 package com.example.sda.travelagencyservice.controller;
 
 
+import com.example.sda.travelagencyservice.dto.CityDto;
 import com.example.sda.travelagencyservice.dto.HotelDto;
 import com.example.sda.travelagencyservice.service.CityService;
 import com.example.sda.travelagencyservice.service.HotelService;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class HotelController {
@@ -21,17 +24,28 @@ public class HotelController {
         this.cityService = cityService;
     }
 
+    @GetMapping("/hotel/list")
+    public String getAllHotel(Model model){
+
+        List<HotelDto> hotelDtos = hotelService.getAllHotel();
+        model.addAttribute("hotelList",hotelDtos);
+
+        return "hotelList";
+    }
+
     @GetMapping("/panel/add/hotel")
-    public String showAddHotelForm(Model model) {
-        model.addAttribute("cities",cityService.getAllCities());
-        model.addAttribute("addHotel", new HotelDto());
+    public String createHotel(Model model){
+        List<CityDto> cityDtos = cityService.getAllCities();
+        model.addAttribute("hotel",new HotelDto());
+        model.addAttribute("cities",cityDtos);
+
         return "addHotel";
     }
 
     @PostMapping("/panel/add/hotel")
-    public String addNewHotel(@ModelAttribute(name = "addHotel") HotelDto hotelDto, Model model) {
-        model.addAttribute("addHotel", hotelDto);
-        hotelService.addNewHotel(hotelDto);
-        return "redirect:/panel";
+    public String createHotel(@ModelAttribute("hotel") HotelDto hotelDto) throws Exception {
+        System.out.println("Dane: " + hotelDto);
+        hotelService.saveHotel(hotelDto);
+        return "redirect:/hotel/list";
     }
 }
