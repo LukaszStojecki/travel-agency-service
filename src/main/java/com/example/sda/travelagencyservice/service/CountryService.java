@@ -1,43 +1,49 @@
 package com.example.sda.travelagencyservice.service;
 
 import com.example.sda.travelagencyservice.dto.CountryDto;
+import com.example.sda.travelagencyservice.exception.ConflictException;
+import com.example.sda.travelagencyservice.exception.NotFoundException;
+import com.example.sda.travelagencyservice.mapper.CountryMapper;
+import com.example.sda.travelagencyservice.model.Continent;
 import com.example.sda.travelagencyservice.model.Country;
+import com.example.sda.travelagencyservice.repository.ContinentRepository;
 import com.example.sda.travelagencyservice.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class CountryService {
 
     private CountryRepository countryRepository;
-    private ContinentService continentService;
+    private CountryMapper countryMapper;
+    private ContinentRepository continentRepository;
 
-    public CountryService(CountryRepository countryRepository, ContinentService continentService) {
+    public CountryService(CountryRepository countryRepository, CountryMapper countryMapper, ContinentRepository continentRepository) {
         this.countryRepository = countryRepository;
-        this.continentService = continentService;
+        this.countryMapper = countryMapper;
+
+        this.continentRepository = continentRepository;
     }
 
-    public List<Country> getAllCountry() {
-        return countryRepository.findAll();
+    public List<CountryDto> getAllCountries(){
+
+        return countryRepository.findAll()
+                .stream()
+                .map(countryMapper::mapCountryToDto)
+                .collect(Collectors.toList());
     }
 
-    public Country getCountryById(Long id) {
-        return countryRepository.getOne(id);
-    }
+    public void saveCountry(CountryDto countryDto) throws NotFoundException, ConflictException {
+        Continent continent = continentRepository.findById(countryDto.getContinentId()).orElseThrow(()->new NotFoundException("Continent not fount" + countryDto.getContinentId().toString()));
+        if (countryRepository.existsByName(countryDto.getName())){
+            throw new ConflictException("Country already exists: " + countryDto.getName());
+        }
+        Country country = countryMapper.mapToCountry(countryDto,continent);
+        countryRepository.save(country);
 
-    public Country addCountries(CountryDto countryDto) {
-        Country country = new Country();
-        country.setId(countryDto.getId());
-        country.setName(countryDto.getName());
-        country.setContinent(continentService.getContinentById(countryDto.getContinentId()));
-        return countryRepository.save(country);
-    }
-
-    public List<Country> getAllCountriesByName() {
-        List<Country> countries = countryRepository.findAll();
-        countries.sort(Comparator.comparing(Country::getName));
-        return countries;
     }
 }

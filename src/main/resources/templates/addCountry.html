@@ -5,20 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<h3>Dodaj Kraj</h3>
-<form method="post" th:action="@{/panel/add/country}" th:object="${addCountry}">
-    <div class="form-group"><label><strong>Kontynent</strong></label>
+<h1>Nowy Kraj</h1>
+<form th:action="@{/panel/add/country}" th:object="${country}" method="post">
 
-        <select th:field="*{continentId}">
-                <option th:each="continent: ${continents}" th:text="${continent.name}"
-                        th:value="${continent.id}"></option>
-        </select>
-    </div>
-    <label><strong>Nazwa</strong></label>
-    <input type="text" name="name">
-    <div class="form-group">
-        <button class="btn btn-primary btn-block" type="submit">Dodaj</button>
+    <div class="row">
+        <div class="form-group col-md-8">
+            <label class="col-form-label">Nazwa Kraju : </label> <input type="text" th:field="*{name}" class="form-control">
+        </div>
+        <div class="form-group col-md-8">
+            <label for="continents">Nazwa Kontynentu:</label>
+            <select class="form-control" id="continents" th:field="*{continentId}">
+                <option th:each="continent : ${continents}" th:value="${continent.id}" th:text="${continent.name}"></option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <input type="submit" class="btn btn-primary" value="Dodaj Kraj">
+        </div>
+        <div class="form-group col-md-8"></div>
     </div>
 </form>
-</body>
-</html>
