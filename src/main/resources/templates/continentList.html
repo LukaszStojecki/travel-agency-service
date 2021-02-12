@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TripList</title>
+</head>
+<body>
+
+<h1>Lista Kontynentów</h1>
+
+<table>
+    <tr th:each="continent: ${continents}">
+        <td th:text="${continent.id}"></td>
+        <td th:text="${continent.name}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
