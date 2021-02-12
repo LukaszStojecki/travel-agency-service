@@ -48,12 +48,12 @@
 <main class="page">
     <section class="clean-block features">
         <div class="container">
-            <h2 class="text-info" th:text="|Przylot do: ${trip.cityWhere?.name}|"></h2>
+            <h2 class="text-info" th:text="|Przylot do: ${trip.arrivalCity}|"></h2>
             <div class="block-heading">
 
-                <span th:text="|Wylot z: ${trip.cityFrom?.name}|"></span>
+                <span th:text="|Wylot z: ${trip.departureCity}|"></span>
                 <br>
-                <span th:text="|Hotel: ${trip.hotelWhere?.name}|"></span></th>
+                <span th:text="|Hotel: ${trip.hotel}|"></span></th>
                 <br>
                 <span th:text="|Początek wycieczki: ${trip.startDate}|"></span>
                 <br>
@@ -61,13 +61,11 @@
                 <br>
                 <span th:text="|Ilośc dni: ${trip.days}|"></span>
                 <br>
-                <span th:text="|Kraj: ${trip.cityFrom?.country?.name}|"></span>
-                <br>
-                <span th:text="|Lotnisko: ${trip.airportFrom?.name}|"> </span>
+                <span th:text="|Lotnisko: ${trip.departureAirport}|"> </span>
                 <br>
                 <a sec:authorize="hasRole('USER')" th:href="@{'/buyTrip/' + ${trip.id}}">Kup Wycieczkę</a>
                 <br>
-                <button  sec:authorize="hasRole('ADMIN')"type="button" class="btn btn-secondary">
+                <button  sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary">
                     <a th:href="@{'/panel/edit/' + ${trip.id}}">Edytuj Wycieczkę!</a>
                 </button>
             </div>

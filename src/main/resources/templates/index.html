@@ -84,10 +84,10 @@
                 <tbody>
                 <tr th:each="trip : ${search}">
                     <td th:text="${trip.id}"></td>
-                    <td th:text="${trip.cityFrom?.name}"></td>
-                    <td th:text="${trip.cityWhere?.name}"></td>
-                    <td th:text="${trip.airportFrom?.name}"></td>
-                    <td th:text="${trip.airportWhere?.name}"></td>
+                    <td th:text="${trip.departureCity}"></td>
+                    <td th:text="${trip.arrivalCity}"></td>
+                    <td th:text="${trip.departureAirport}"></td>
+                    <td th:text="${trip.arrivalAirport}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td th:text="${trip.endDate}"></td>
                     <td th:text="${trip.promoted}"></td>
@@ -116,7 +116,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="trip:${lastminute}">
-                    <td th:text="${trip.cityFrom?.name}"></td>
+                    <td th:text="${trip.departureCity}"></td>
                     <td th:text="${trip.adultPrice}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td><a th:href="@{${'/trip/'+ trip.id}}">
@@ -142,7 +142,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="trip:${promotedTrips}">
-                    <td th:text="${trip.cityFrom?.name}"></td>
+                    <td th:text="${trip.departureCity}"></td>
                     <td th:text="${trip.adultPrice}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td><a th:href="@{${'/trip/'+ trip.id}}">

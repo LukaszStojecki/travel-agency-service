@@ -20,5 +20,6 @@ public class User {
     @NotEmpty
     @NotNull
     private String password;
+    @Enumerated(value = EnumType.STRING)
     private Role roles;
 }

@@ -51,6 +51,8 @@
                 <a href="/panel/add/hotel">Dodaj nowy hotel</a>
                 <br>
                 <a href="/panel/add/country">Dodaj nowy kraj</a>
+                <br>
+                <a href="/panel/add/continent">Dodaj nowy kontynent</a>
             </form>
         </div>
     </section>
@@ -78,11 +80,11 @@
     <tbody>
     <tr th:each="trip : ${allTrip}">
         <td th:hidden="${trip.id}"></td>
-        <td th:text="${trip.cityFrom?.name}"></td>
-        <td th:text="${trip.airportFrom?.name}"></td>
-        <td th:text="${trip.cityWhere?.name}"></td>
-        <td th:text="${trip.airportWhere?.name}"></td>
-        <td th:text="${trip.hotelWhere?.name}"></td>
+        <td th:text="${trip.departureCity}"></td>
+        <td th:text="${trip.departureAirport}"></td>
+        <td th:text="${trip.arrivalCity}"></td>
+        <td th:text="${trip.arrivalAirport}"></td>
+        <td th:text="${trip.hotel}"></td>
         <td th:text="${trip.startDate}"></td>
         <td th:text="${trip.endDate}"></td>
         <td th:text="${trip.days}"></td>
@@ -95,11 +97,13 @@
         <td>
             <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a th:href="@{/panel/edit/{id}(id=${trip.id})}">Edytuj Wycieczkę!</a>
             </button>
+            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a th:href="@{/panel/delete/{id}(id=${trip.id})}">Usuń Wycieczkę!</a>
+            </button>
         </td>
     </tr>
     </tbody>
 </table>
-<a href="/" th:href="@{/}">Powrót do storny głównej</a>
+<a href="/" th:href="@{/}">Powrót do strony głównej</a>
 <footer class="page-footer dark">
     <div class="footer-copyright">
         <p>© 2020 Copyright</p>
