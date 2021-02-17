@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -39,8 +40,8 @@ public class UserController {
 
     @PostMapping("/register")
     public String saveUserSignUpForm(@ModelAttribute("user") UserDto user, BindingResult bindingResult) {
-        User existing = userDetailServiceImpl.findByUsername(user.getUsername());
-        if (existing!=null){
+        Optional<User> existing = userDetailServiceImpl.findByUsername(user.getUsername());
+        if (existing.isPresent()){
             bindingResult.rejectValue("username",null,"There is already an account registered with that username");
         }
         if (bindingResult.hasErrors()){

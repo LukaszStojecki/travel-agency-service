@@ -1,10 +1,11 @@
 package com.example.sda.travelagencyservice.service;
 
 import com.example.sda.travelagencyservice.dto.UserDto;
+import com.example.sda.travelagencyservice.exception.NotFoundException;
 import com.example.sda.travelagencyservice.model.Role;
 import com.example.sda.travelagencyservice.model.User;
 import com.example.sda.travelagencyservice.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.singletonList;
 
 
 @Service
@@ -34,7 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User findByUsername(String username) {
+    public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -46,19 +42,19 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userRepository.save(addUser);
     }
 
+    @SneakyThrows
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        User user = userOptional.orElseThrow(() -> new NotFoundException("User not found" + username));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(), getAuthorities("USER"));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Role role) {
-        return singletonList(new SimpleGrantedAuthority("ROLE_" + role.toString()));
+    private Collection<? extends GrantedAuthority> getAuthorities(String role){
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 }
 
