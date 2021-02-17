@@ -145,33 +145,6 @@ public class TripService {
                 .collect(Collectors.toList());
     }
 
-//    public Trip addNewTrip(Trip trip) {
-//        return tripRepository.save(trip);
-//    }
-
-//    public List<Trip> getAllLastMinuteTrip() {
-//        return tripRepository.findAll().stream()
-//                .filter(trip -> trip.getStartDate().isAfter(ChronoLocalDate.from(LocalDateTime.now())))
-//                .sorted(Comparator.comparing(Trip::getStartDate))
-//                .collect(Collectors.toList());
-//    }
-
-//    public List<Trip> getTripsOrderedByStartDateDesc() {
-//        List<Trip> trips = tripRepository.findAll();
-//        trips.sort(Comparator.comparing(Trip::getStartDate).reversed());
-//        return trips;
-//    }
-
-//    public List<Trip> getAllPromotedTrips() {
-//        return tripRepository.findAll().stream()
-//                .filter(Trip::isPromoted)
-//                .collect(Collectors.toList());
-//    }
-
-
-//    public Trip getTripById(Long id) {
-//        return tripRepository.getOne(id);
-//    }
 
     public Optional<Trip> findTripById(Long id) {
         return tripRepository.findById(id);
@@ -183,52 +156,5 @@ public class TripService {
                 .collect(Collectors.toList());
 
     }
-
-//    public Trip mapDtoToEntity(TripDto tripDto) {
-//        Trip trip;
-//        if (tripDto.getId() == null) {
-//            trip = new Trip();
-//        } else {
-//            trip = findTripById(tripDto.getId()).get();
-//        }
-//        trip.setCityFrom(cityService.findCityName(tripDto.getCityFrom()));
-//        trip.setCityWhere(cityService.findCityName(tripDto.getCityWhere()));
-//        trip.setAirportFrom(airportService.findByName(tripDto.getAirportFrom()));
-//        trip.setAirportWhere(airportService.findByName(tripDto.getAirportWhere()));
-//        trip.setHotelWhere(hotelService.findHotelByName(tripDto.getHotelWhere()));
-//        trip.setStartDate(LocalDate.parse(tripDto.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-d")));
-//        trip.setEndDate(LocalDate.parse(tripDto.getEndDate(),DateTimeFormatter.ofPattern("yyyy-MM-d")));
-//        trip.setDays(tripDto.getDays());
-//        trip.setAccomodation(Accomodation.valueOf(tripDto.getAccomodation()));
-//        trip.setAdultPrice(tripDto.getAdultPrice());
-//        trip.setChildPrice(tripDto.getChildPrice());
-//        trip.setPromoted(tripDto.isPromoted());
-//        trip.setAdultPlaceAvailable(tripDto.getAdultPlaceAvailable());
-//        trip.setChildPlaceAvailable(tripDto.getChildPlaceAvailable());
-//        return tripRepository.save(trip);
-//    }
-
-//    public TripDto mapTripToDto(Trip trip) {
-//        TripDto tripDto = new TripDto();
-//        tripDto.setId(trip.getId());
-//        tripDto.setCityFrom(trip.getCityFrom().getName());
-//        tripDto.setCityWhere(trip.getCityWhere().getName());
-//        tripDto.setAirportFrom(trip.getAirportFrom().getName());
-//        tripDto.setAirportWhere(trip.getAirportWhere().getName());
-//        tripDto.setHotelWhere(trip.getHotelWhere().getName());
-//        tripDto.setStartDate(trip.getStartDate().toString());
-//        tripDto.setEndDate(trip.getEndDate().toString());
-//        tripDto.setDays(trip.getDays());
-//        tripDto.setAccomodation(trip.getAccomodation().toString());
-//        tripDto.setAdultPrice(trip.getAdultPrice());
-//        tripDto.setChildPrice(trip.getChildPrice());
-//        tripDto.setPromoted(trip.isPromoted());
-//        tripDto.setAdultPlaceAvailable(trip.getAdultPlaceAvailable());
-//        tripDto.setChildPlaceAvailable(trip.getChildPlaceAvailable());
-//        return tripDto;
-//    }
-
-
-
 }
 

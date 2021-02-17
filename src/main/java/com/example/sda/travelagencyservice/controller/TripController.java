@@ -30,7 +30,19 @@ public class TripController {
     @GetMapping("/find")
     public String searchATripsByDates(@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model model) {
         model.addAttribute("search", tripService.getTripByDate(LocalDate.parse(startDate), LocalDate.parse(endDate)));
-        return "index";
+        return "search";
+    }
+
+    @GetMapping("/country/{name}")
+    public String getTripByCountry(@PathVariable String name, Model model) throws NotFoundException {
+        model.addAttribute("trips", tripService.getAllLastMinuteTripByCountry(name));
+        return "tripList";
+    }
+
+    @GetMapping("/continent/{name}")
+    public String getTripByContinent(@PathVariable String name, Model model) throws NotFoundException {
+        model.addAttribute("trips", tripService.getAllLastMinuteTripByContinent(name));
+        return "tripList";
     }
 
 }

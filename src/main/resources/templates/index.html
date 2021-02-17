@@ -64,43 +64,6 @@
             </form>
         </div>
     </section>
-    <section class="clean-block clean-hero" style="color: #1f5074">
-        <div class="text">
-            <h3 class="text-center font-weight-bold">Wyszukane wycieczki</h3><br/>
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>ID wycieczki</th>
-                    <th>Miasto wylotu</th>
-                    <th>Miasto przylotu</th>
-                    <th>Lotnisko wylotu</th>
-                    <th>Lotnisko przylotu</th>
-                    <th>Termin wyjazdu</th>
-                    <th>Termin powrotu</th>
-                    <th>Wycieczka promowana</th>
-                    <th>Zakup wycieczki</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="trip : ${search}">
-                    <td th:text="${trip.id}"></td>
-                    <td th:text="${trip.departureCity}"></td>
-                    <td th:text="${trip.arrivalCity}"></td>
-                    <td th:text="${trip.departureAirport}"></td>
-                    <td th:text="${trip.arrivalAirport}"></td>
-                    <td th:text="${trip.startDate}"></td>
-                    <td th:text="${trip.endDate}"></td>
-                    <td th:text="${trip.promoted}"></td>
-                    <td>
-                        <button type="button" class="btn btn-dark btn-sm"><a th:href="@{'/buyTrip/' + ${trip.id}}">Kup
-                            wycieczkę</a>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
     <section class="clean-block clean-hero"
              style="background-image: url(https://www.ecotravel.pl/c643941a6cf60b21ed2585f9b19ad7ee,images,1,.jpg)">
         <div class="text">
@@ -116,7 +79,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="trip:${lastminute}">
-                    <td th:text="${trip.departureCity}"></td>
+                    <th th:text="${trip.departureCity}"></th>
                     <td th:text="${trip.adultPrice}"></td>
                     <td th:text="${trip.startDate}"></td>
                     <td><a th:href="@{${'/trip/'+ trip.id}}">
@@ -151,6 +114,24 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+    </section>
+    <section class="clean-block clean-hero">
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Zbliżające się wycieczki z podziałem na kontynenty</h3><br/>
+            <tr th:each="continent: ${continents}">
+                <a class="nav-link" th:text="${continent.name}" th:href="${'/continent/'+ continent.name}"></a>
+                <td th:each="trip: ${allTrip}">
+
+                </td>
+            </tr>
+        </div>
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Zbliżające się wycieczki z podziałem na kraje</h3><br/>
+            <tr th:each="country: ${countries}">
+                <a class="nav-link" th:text="${country.name}" th:href="${'/country/'+ country.name}">
+                </a>
+            </tr>
         </div>
     </section>
 </main>
