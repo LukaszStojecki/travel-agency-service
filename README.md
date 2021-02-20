@@ -5,10 +5,10 @@
 System that allows you to search for tours by specific criteria and to "buy" them.
 
 ## Table of contents
-* [Main system functions](#Main system functions)
-* [Tools used](#Tools used)
+* [Main system functions](#Main-system-functions)
+* [Tools used](#Tools-used)
 * [TODO](#TODO)
-* [How To Use](#How To Use)
+* [How To Use](#How-To-Use)
 * [Status](#status)
 * [Contact](#contact)
 
@@ -50,7 +50,9 @@ System that allows you to search for tours by specific criteria and to "buy" the
 
 ## How To Use
 $ git clone https://github.com/LukaszStojecki/travel-agency-service
+
 $ cd travel-agency-service
+
 $ mvn spring-boot:run
 
 ## Status
