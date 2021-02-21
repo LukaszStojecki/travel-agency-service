@@ -57,7 +57,7 @@ $ cd travel-agency-service
 $ mvn spring-boot:run
 
 ## Status
-Project is: _in progress_
+Project is: _in progress_.Work on the project to introduce new features
 
 ## Contact
 
