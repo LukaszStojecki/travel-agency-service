@@ -1,16 +1,17 @@
 # Travel agency service
 
-## About project
-
-System that allows you to search for tours by specific criteria and to "buy" them.
-
 ## Table of contents
+* [About project](#About-project)
 * [Main system functions](#Main-system-functions)
 * [Tools used](#Tools-used)
 * [TODO](#TODO)
 * [How To Use](#How-To-Use)
 * [Status](#status)
 * [Contact](#contact)
+
+## About project
+
+System that allows you to search for tours by specific criteria and to "buy" them.
 
 ## Main system functions
 
