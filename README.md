@@ -47,7 +47,6 @@ System that allows you to search for tours by specific criteria and to "buy" the
 - [ ] presentation of recently bought tours
 - [ ] form enabling you to filter and sort the results (tours)
 - [ ] search for tours by other criteria
-- [ ] Spring security e.g. JWT authentication
 
 ## How To Use
 $ git clone https://github.com/LukaszStojecki/travel-agency-service
