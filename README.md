@@ -36,10 +36,11 @@ System that allows you to search for tours by specific criteria and to "buy" the
 ## Tools used:
 
  - JDK 11
- - Spring(Security, Web, Data JPA)
+ - Spring(Security, Boot, Data JPA, MVC)
  - Lombok
+ - Hibernate
  - MySQL
- - Thymeleaf(JS, CSS, HTML)
+ - Thymeleaf
  - Bootstrap
 
 ## TODO
@@ -56,7 +57,7 @@ $ cd travel-agency-service
 $ mvn spring-boot:run
 
 ## Status
-Project is: _in progress_.Work on the project to introduce new features
+Project is: _in progress_.
 
 ## Contact
 
