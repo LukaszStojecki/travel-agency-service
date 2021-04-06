@@ -43,24 +43,4 @@ public class CityService {
         City city = cityMapper.mapToCity(cityDto, country);
         cityRepository.save(city);
     }
-
-    @Transactional
-    public CityDto updateCity(Long id, CityDto cityDto) throws NotFoundException {
-
-        City city = cityRepository.findById(id).orElseThrow(()->new NotFoundException("City Not found"));
-        city.setName(cityDto.getName());
-        City cityUpdated = cityRepository.save(city);
-        return cityMapper.mapCityEntityToDto(cityUpdated);
-    }
-
-    public void deleteCity(Long id) {
-        cityRepository.deleteById(id);
-    }
-
-//    public City findCityById(Long id) {
-//        return cityRepository.getOne(id);
-//    }
-//    public City findCityName(String name) {
-//        return cityRepository.findCityByName(name);
-//    }
 }
