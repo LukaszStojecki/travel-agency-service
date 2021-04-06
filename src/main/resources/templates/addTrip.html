@@ -30,6 +30,9 @@
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{/panel}">Panel Administratora</a>
                 </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/users}">Lista użytkowników</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -114,7 +117,7 @@
 </main>
 <a href="/" th:href="@{/}">Powrót do strony głównej</a>
 <footer class="page-footer dark">
-    <div class="footer" align="center">
+    <div class="footer" align="center" style="color: white">
         <p>© 2020 Copyright</p>
     </div>
 </footer>

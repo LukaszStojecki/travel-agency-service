@@ -23,8 +23,8 @@ public class TripDto {
     private String endDate;
     private Integer days;
     private String accomodation;
-    private BigDecimal adultPrice;
-    private BigDecimal childPrice;
+    private Double adultPrice;
+    private Double childPrice;
     private boolean isPromoted;
     private Integer adultPlaceAvailable;
     private Integer childPlaceAvailable;

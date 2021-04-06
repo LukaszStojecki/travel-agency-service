@@ -16,8 +16,6 @@ import java.util.List;
 @Repository
 public interface TripRepository  extends JpaRepository<Trip,Long> {
 
-    Trip getById(Long id);
-
     @Query("select t from Trip t where t.startDate>=:startDate and t.endDate<=:endDate")
     List<Trip> findTripByStartDateAndEndDate(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
 

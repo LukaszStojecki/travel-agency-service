@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -29,13 +30,15 @@ public class Trip {
     private Airport arrivalAirport;
     @OneToOne
     private Hotel hotel;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     private Integer days;
     @Enumerated(EnumType.STRING)
     private Accomodation accomodation;
-    private BigDecimal adultPrice;
-    private BigDecimal childPrice;
+    private Double adultPrice;
+    private Double childPrice;
     private boolean isPromoted;
     private Integer adultPlaceAvailable;
     private Integer childPlaceAvailable;
