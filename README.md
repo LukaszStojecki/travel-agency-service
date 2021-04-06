@@ -47,6 +47,7 @@ Buying a tour - calculating the final amount according to the number of people:
  * Hibernate
  * MySQL
  * Thymeleaf
+ * JUnit&Mockito
  * Bootstrap
 
 ## TODO
