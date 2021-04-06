@@ -10,19 +10,28 @@ import org.springframework.stereotype.Component;
 public class CountryMapper {
 
     public Country mapToCountry(CountryDto countryDto, Continent continent){
-        return Country.builder()
-                .name(countryDto.getName())
-                .continent(continent)
-                .build();
+        if (countryDto == null){
+            return null;
+        } else {
+            return Country.builder()
+                    .name(countryDto.getName())
+                    .continent(continent)
+                    .build();
+        }
 
     }
 
     public CountryDto mapCountryToDto(Country country){
+        if (country == null){
+            return null;
+        } else {
+            return CountryDto.builder()
+                    .id(country.getId())
+                    .name(country.getName())
+                    .continentId(country.getContinent().getId())
+                    .build();
+        }
 
-        return CountryDto.builder()
-                .id(country.getId())
-                .name(country.getName())
-                .continentId(country.getContinent().getId())
-                .build();
+
     }
 }
