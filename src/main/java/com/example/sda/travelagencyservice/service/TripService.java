@@ -4,15 +4,17 @@ package com.example.sda.travelagencyservice.service;
 import com.example.sda.travelagencyservice.dto.TripDto;
 import com.example.sda.travelagencyservice.exception.BadRequestException;
 import com.example.sda.travelagencyservice.exception.NotFoundException;
+import com.example.sda.travelagencyservice.exception.PlaceAvailable;
 import com.example.sda.travelagencyservice.mapper.TripMapper;
 import com.example.sda.travelagencyservice.model.*;
 import com.example.sda.travelagencyservice.repository.*;
 import org.springframework.stereotype.Service;
+import com.google.common.base.Strings;
 
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -128,7 +130,7 @@ public class TripService {
                 .map(trip -> tripMapper.mapTripEntityToDto(trip))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     public List<TripDto> getAllLastMinuteTripByCountry(String name) throws NotFoundException {
         Country country = countryRepository.findByName(name).orElseThrow(() -> new NotFoundException("Country not found " + name));
         return tripRepository.findByArrivalCityCountry(country).stream()
@@ -137,6 +139,7 @@ public class TripService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public List<TripDto> getAllLastMinuteTripByContinent(String name) throws NotFoundException {
         Continent continent = continentRepository.findByName(name).orElseThrow(() -> new NotFoundException("Continent not found " + name));
         return tripRepository.findByArrivalCityCountryContinent(continent).stream()
@@ -145,16 +148,19 @@ public class TripService {
                 .collect(Collectors.toList());
     }
 
-
-    public Optional<Trip> findTripById(Long id) {
-        return tripRepository.findById(id);
+    public List<TripDto> getTripByDate(LocalDate startDate, LocalDate endDate) {
+            return tripRepository.findTripByStartDateAndEndDate(startDate, endDate).stream()
+                    .map(trip -> tripMapper.mapTripEntityToDto(trip))
+                    .collect(Collectors.toList());
     }
 
-    public List<TripDto> getTripByDate(LocalDate startDate, LocalDate endDate) {
-        return tripRepository.findTripByStartDateAndEndDate(startDate, endDate).stream()
-                .map(trip -> tripMapper.mapTripEntityToDto(trip))
-                .collect(Collectors.toList());
-
+    public boolean checkPlaceAvailable(Trip trip, Integer childQuantity, Integer adultsQuantity) throws PlaceAvailable, NotFoundException {
+        TripDto tripSearch = findById(trip.getId());
+        if (tripSearch.getChildPlaceAvailable() >= childQuantity || tripSearch.getAdultPlaceAvailable() >= adultsQuantity) {
+            return true;
+        } else {
+            throw new PlaceAvailable("Brak wolnych miejsc");
+        }
     }
 }
 
