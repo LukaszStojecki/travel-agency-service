@@ -7,10 +7,7 @@ import com.example.sda.travelagencyservice.dto.HotelDto;
 import com.example.sda.travelagencyservice.dto.TripDto;
 import com.example.sda.travelagencyservice.exception.BadRequestException;
 import com.example.sda.travelagencyservice.exception.NotFoundException;
-import com.example.sda.travelagencyservice.service.AirportService;
-import com.example.sda.travelagencyservice.service.CityService;
-import com.example.sda.travelagencyservice.service.HotelService;
-import com.example.sda.travelagencyservice.service.TripService;
+import com.example.sda.travelagencyservice.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,12 +26,15 @@ public class AdminController {
     private AirportService airportService;
     private CityService cityService;
     private HotelService hotelService;
+    private UserService userService;
 
-    public AdminController(TripService tripService, AirportService airportService, CityService cityService, HotelService hotelService) {
+    public AdminController(TripService tripService, AirportService airportService,
+                           CityService cityService, HotelService hotelService, UserService userService) {
         this.tripService = tripService;
         this.airportService = airportService;
         this.cityService = cityService;
         this.hotelService = hotelService;
+        this.userService = userService;
     }
 
 
@@ -89,6 +89,12 @@ public class AdminController {
     public String deleteTripById(@PathVariable Long id) {
         tripService.deleteById(id);
         return "redirect:/panel";
+    }
+
+    @GetMapping("/users")
+    public String getAllUsers(Model model){
+        model.addAttribute("users",userService.getAllUsers());
+        return "usersList";
     }
 
 }
