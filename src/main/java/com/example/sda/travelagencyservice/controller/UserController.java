@@ -2,35 +2,27 @@ package com.example.sda.travelagencyservice.controller;
 
 
 import com.example.sda.travelagencyservice.dto.UserDto;
-import com.example.sda.travelagencyservice.model.User;
-import com.example.sda.travelagencyservice.service.UserDetailServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.sda.travelagencyservice.exception.ConflictException;
+import com.example.sda.travelagencyservice.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-import java.util.Optional;
+import javax.validation.Valid;
+
 
 @Controller
 public class UserController {
 
-    private UserDetailServiceImpl userDetailServiceImpl;
+    private UserService userService;
 
-    @Autowired
-    public UserController(UserDetailServiceImpl userDetailServiceImpl) {
-        this.userDetailServiceImpl = userDetailServiceImpl;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("user",new UserDto());
-        return "login";
-    }
 
     @GetMapping("/sign-up")
     public String getSignUpForm(Model model) {
@@ -38,18 +30,39 @@ public class UserController {
         return "sign-up";
     }
 
-    @PostMapping("/register")
-    public String saveUserSignUpForm(@ModelAttribute("user") UserDto user, BindingResult bindingResult) {
-        Optional<User> existing = userDetailServiceImpl.findByUsername(user.getUsername());
-        if (existing.isPresent()){
-            bindingResult.rejectValue("username",null,"There is already an account registered with that username");
-        }
-        if (bindingResult.hasErrors()){
+    @PostMapping("/sign-up")
+    public String signup(@ModelAttribute("user") @Valid UserDto userDto,
+                         Model model) throws ConflictException {
+        if (userService.checkUserExists(userDto.getUsername(), userDto.getEmail())){
+            if (userService.checkUsernameExists(userDto.getUsername())){
+                model.addAttribute("usernameExists",true);
+            }
+            if (userService.checkEmailExists(userDto.getEmail())) {
+                model.addAttribute("emailExists", true);
+            }
+            if (userService.checkValidatePassword(userDto.getPassword())){
+                model.addAttribute("passwordCheck",true);
+            }
+
             return "sign-up";
+
+        }else {
+            userService.signup(userDto);
+            model.addAttribute("message", "User " + userDto.getUsername() + " registered successfully. Please login.");
+            return "login";
         }
-        userDetailServiceImpl.addNewUser(user);
-        System.out.println(user);
-        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String login(@RequestParam(required = false) String error, @RequestParam(required = false) String logout,
+                        Model model) {
+        if (error != null)
+            model.addAttribute("error", "Invalid username or password.");
+
+        if (logout != null)
+            model.addAttribute("message", "User logged out successfully.");
+
+        return "login";
     }
 
 }
