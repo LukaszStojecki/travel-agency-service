@@ -39,7 +39,7 @@ Application which allows you to search for tours by specific criteria and to "bu
   | ------ | -------- | ----- |
   | admin  |  admin1  | ADMIN |
   | user   |  user1   | USER  |
-## Tools used:
+## Technologies:
 
  * JDK 11
  * Spring(Security, Boot, Data JPA, MVC)
