@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>Travel</title>
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/assets/fonts/simple-line-icons.min.css}">
 </head>
 <body>
 <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
@@ -26,9 +24,16 @@
 
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link" th:href="@{/sign-up}">Rejestracja</a>
+                </li>
 
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{/panel}">Panel Administratora</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/users}">Lista użytkowników</a>
+                </li>
+                <li sec:authorize="hasRole('USER')" class="nav-item">
+                    <a class="nav-link" th:href="@{/purchase}">Lista zakupionych wycieczek</a>
                 </li>
             </ul>
         </div>
@@ -134,9 +139,30 @@
             </tr>
         </div>
     </section>
+    <section class="clean-block clean-hero"style="color:rgba(9, 22, 27, 0.85);height:230;width:992;">
+        <div class="text">
+            <h3 class="text-center font-weight-bold">Ostatnio zakupione wycieczki</h3><br/>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                <tr>
+                    <th>Miasto przylotu</th>
+                    <th>Użytkownik</th>
+                    <th>Kwota wycieczki</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="purchase:${allPurchase}">
+                    <td th:text="${purchase?.tripPurchase}"></td>
+                    <td th:text="${purchase?.userPurchase}"></td>
+                    <td th:text="${purchase.amount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </main>
 <footer class="page-footer dark">
-    <div class="footer" align="center">
+    <div class="footer" align="center" style="color: white">
         <p>© 2020 Copyright</p>
     </div>
 </footer>
