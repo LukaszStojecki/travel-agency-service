@@ -1,56 +1,30 @@
 package com.example.sda.travelagencyservice.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
+@Data
 @Entity
-//@Table(name = "country")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // @Column(name = "id_country")
-    private long id;
-
+    private Long id;
+    @NotNull
+    private String name;
     @ManyToOne
-   // @JoinColumn(name = "id_continent")
     private Continent continent;
-
     @OneToMany(mappedBy = "country")
     private List<City> cities;
 
-    public Country() {
-    }
-
-    public Country(long id, Continent continent, List<City> cities) {
-        this.id = id;
-        this.continent = continent;
-        this.cities = cities;
-    }
-
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Continent getContinent() {
-        return continent;
-    }
-
-    public void setContinent(Continent continent) {
-        this.continent = continent;
-    }
 }

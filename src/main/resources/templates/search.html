@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>result</title>
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
+    <div class="container"><a class="navbar-brand logo" href="#"></a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only"></span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Zaloguj</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
+                </li>
+
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/sign-up}">Rejestracja</a>
+
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/panel}">Panel Administratora</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/users}">Lista użytkowników</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br>
+<h3 class="text-center">Wyszukane wycieczki</h3>
+<table class="table table-bordered" width="90%" id="dataTable" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Miasto - Wylot</th>
+        <th>Lotnisko - Wylot</th>
+        <th>Miasto - Przylot</th>
+        <th>Lotnisko - Przylot</th>
+        <th>Hotel</th>
+        <th>Termin wyjazdu</th>
+        <th>Termin powrotu</th>
+        <th>Ilość dni</th>
+        <th>Wyżywienie</th>
+        <th>Cena za dorosłego</th>
+        <th>Cena za dziecko</th>
+        <th>Promocja</th>
+        <th>Ilość miejsc dla dorosłych</th>
+        <th>Ilość miejsc dla dzieci</th>
+        <th>Akcja</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trip : ${search}">
+        <td th:hidden="${trip.id}"></td>
+        <td th:text="${trip.departureCity}"></td>
+        <td th:text="${trip.departureAirport}"></td>
+        <td th:text="${trip.arrivalCity}"></td>
+        <td th:text="${trip.arrivalAirport}"></td>
+        <td th:text="${trip.hotel}"></td>
+        <td th:text="${trip.startDate}"></td>
+        <td th:text="${trip.endDate}"></td>
+        <td th:text="${trip.days}"></td>
+        <td th:text="${trip.accomodation}"></td>
+        <td th:text="${trip.adultPrice}"></td>
+        <td th:text="${trip.childPrice}"></td>
+        <td th:text="${trip.promoted}"></td>
+        <td th:text="${trip.adultPlaceAvailable}"></td>
+        <td th:text="${trip.childPlaceAvailable}"></td>
+        <td>
+            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a th:href="@{/panel/edit/{id}(id=${trip.id})}">Edytuj Wycieczkę!</a>
+            </button>
+            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a th:href="@{/panel/delete/{id}(id=${trip.id})}">Usuń Wycieczkę!</a>
+            </button>
+            <a sec:authorize="hasRole('USER')" th:href="@{'/buyTrip/' + ${trip.id}}">Kup Wycieczkę</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/" th:href="@{/}">Powrót do strony głównej</a>
+<footer class="page-footer dark">
+    <div class="footer" align="center" style="color: white">
+        <p>© 2020 Copyright</p>
+    </div>
+</footer>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/script.min.js}"></script>
+</body>
+</html>
