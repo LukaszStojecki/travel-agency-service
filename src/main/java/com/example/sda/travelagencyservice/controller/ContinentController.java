@@ -20,15 +20,15 @@ public class ContinentController {
     }
 
     @GetMapping("/continent/list")
-    public String getAllContinents(Model model){
+    public String getAllContinents(Model model) {
         List<ContinentDto> continentDtos = continentService.getAllContinents();
-        model.addAttribute("continents",continentDtos);
+        model.addAttribute("continents", continentDtos);
         return "continentList";
     }
 
     @GetMapping("/panel/add/continent")
-    public String createContinent(Model model){
-        model.addAttribute("continent",new ContinentDto());
+    public String createContinent(Model model) {
+        model.addAttribute("continent", new ContinentDto());
 
         return "addContinent";
     }
