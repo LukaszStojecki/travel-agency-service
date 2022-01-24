@@ -36,7 +36,7 @@ public class UserService {
     }
 
     @Transactional
-    public void signup (UserDto userDto) throws ConflictException {
+    public void signup(UserDto userDto) throws ConflictException {
 
         if (userDto == null) {
             logger.error("Attempt to add null user.");
@@ -46,31 +46,32 @@ public class UserService {
             logger.error("Attempt to add user already existing.");
             throw new ConflictException("User already exists.");
         }
-            User user = userMapper.mapToUser(userDto);
-            user.setUsername(userDto.getUsername());
-            user.setEmail(userDto.getEmail());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Role.USER);
-            userMapper.mapUserToDto(userRepository.save(user));
-        }
+        User user = userMapper.mapToUser(userDto);
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Role.USER);
+        userMapper.mapUserToDto(user);
+        userRepository.save(user);
+    }
 
 
-    public List<UserDto> getAllUsers(){
+    public List<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(userMapper::mapUserToDto)
                 .collect(Collectors.toList());
     }
 
-    public boolean checkUsernameExists(String username){
-        return userRepository.existsByUsername(username);
+    public boolean checkUsernameExists(String username) {
+        return  userRepository.existsByUsername(username);
     }
 
-    public boolean checkEmailExists(String email){
-        return userRepository.existsByUsername(email);
+    public boolean checkEmailExists(String email) {
+        return userRepository.existsByEmail(email);
     }
 
-    public boolean checkValidatePassword(String password){
+    public boolean checkValidatePassword(String password) {
         return !PasswordValidator.validate(password);
     }
 
@@ -85,6 +86,6 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) throws NotFoundException {
-        return userRepository.findByEmail(email).orElseThrow(()->new NotFoundException("User not found"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found"));
     }
 }
