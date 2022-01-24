@@ -27,9 +27,9 @@ class UserServiceTest {
 
 
     private static final long IDENTIFIER = 1L;
-    private static final User USER = new User(IDENTIFIER, "Admin", "password","admin@p2.pl", Role.USER);
-    private static final UserDto USER_DTO = new UserDto(IDENTIFIER,"admin","password","admin@o2.pl","ADMIN");
-    private static final UserDto USER_DTO_NULL = new UserDto(null, "Admin", "password","admin@p2.pl", "ADMIN");
+    private static final User USER = new User(IDENTIFIER, "Admin", "password", "admin@p2.pl", Role.USER);
+    private static final UserDto USER_DTO = new UserDto(IDENTIFIER, "admin", "password", "admin@o2.pl", "ADMIN");
+    private static final UserDto USER_DTO_NULL = new UserDto(null, "Admin", "password", "admin@p2.pl", "ADMIN");
 
     @Mock
     UserRepository userRepository;
@@ -63,11 +63,10 @@ class UserServiceTest {
         //when
         userService.signup(USER_DTO_NULL);
         //then
-        verify(userRepository,never()).existsById(USER_DTO_NULL.getId());
+        verify(userRepository, never()).existsById(USER_DTO_NULL.getId());
         verify(userRepository).save(userMapper.mapToUser(USER_DTO_NULL));
         verify(passwordEncoder).encode(USER_DTO_NULL.getPassword());
     }
-
 
 
     @Test
@@ -96,8 +95,8 @@ class UserServiceTest {
     void addUserShouldThrowIllegalArgumentExceptionForNullUser() {
         //then
         assertThrows(IllegalArgumentException.class, () -> userService.signup(null));
-        verify(userRepository,never()).existsById(any());
-        verify(userRepository,never()).save(userMapper.mapToUser(USER_DTO));
+        verify(userRepository, never()).existsById(any());
+        verify(userRepository, never()).save(userMapper.mapToUser(USER_DTO));
     }
 
 }
