@@ -75,8 +75,8 @@ public class UserService {
         return !PasswordValidator.validate(password);
     }
 
-    public boolean checkUserExists(String username, String email) {
-        return checkUsernameExists(username) || checkEmailExists(email);
+    public boolean checkUserExists(String username, String email, String pass) {
+        return checkUsernameExists(username) || checkEmailExists(email) || checkValidatePassword(pass);
     }
 
     public UserDto getUserById(Long id) throws NotFoundException {

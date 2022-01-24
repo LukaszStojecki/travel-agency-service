@@ -33,7 +33,7 @@ public class UserController {
     @PostMapping("/sign-up")
     public String signup(@ModelAttribute("user") @Valid UserDto userDto,
                          Model model) throws ConflictException {
-        if (userService.checkUserExists(userDto.getUsername(), userDto.getEmail())) {
+        if (userService.checkUserExists(userDto.getUsername(),userDto.getEmail(), userDto.getPassword())) {
             if (userService.checkUsernameExists(userDto.getUsername())) {
                 model.addAttribute("usernameExists", true);
             }
@@ -48,7 +48,7 @@ public class UserController {
 
         } else {
             userService.signup(userDto);
-            model.addAttribute("message", "User " + userDto.getUsername() + " registered successfully. Please login.");
+            model.addAttribute("message", "Użytkownik " + userDto.getUsername() + " zarejestrował się pomyślnie. Proszę się zalogować.");
             return "login";
         }
     }
