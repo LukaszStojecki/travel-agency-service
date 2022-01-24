@@ -33,20 +33,20 @@ public class UserController {
     @PostMapping("/sign-up")
     public String signup(@ModelAttribute("user") @Valid UserDto userDto,
                          Model model) throws ConflictException {
-        if (userService.checkUserExists(userDto.getUsername(), userDto.getEmail())){
-            if (userService.checkUsernameExists(userDto.getUsername())){
-                model.addAttribute("usernameExists",true);
+        if (userService.checkUserExists(userDto.getUsername(), userDto.getEmail())) {
+            if (userService.checkUsernameExists(userDto.getUsername())) {
+                model.addAttribute("usernameExists", true);
             }
             if (userService.checkEmailExists(userDto.getEmail())) {
                 model.addAttribute("emailExists", true);
             }
-            if (userService.checkValidatePassword(userDto.getPassword())){
-                model.addAttribute("passwordCheck",true);
+            if (userService.checkValidatePassword(userDto.getPassword())) {
+                model.addAttribute("passwordCheck", true);
             }
 
             return "sign-up";
 
-        }else {
+        } else {
             userService.signup(userDto);
             model.addAttribute("message", "User " + userDto.getUsername() + " registered successfully. Please login.");
             return "login";

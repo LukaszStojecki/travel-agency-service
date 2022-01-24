@@ -47,18 +47,18 @@
 
                 <div class="form-group">
                     <label>Nazwa użytkownika: </label>
-                    <p class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</p>
-                    <input id="username" th:field="*{username}" class="form-control" type="username" required>
+                    <p class="bg-danger pull-right" th:if="${usernameExists}">Użytkownik już istnieje. </p>
+                    <input id="username" th:field="*{username}" class="form-control" type="text" required>
                 </div>
                 <div class="form-group">
                     <label>Hasło: </label>
-                    <p class="bg-danger pull-right" th:if="${passwordCheck}">Password needs to be between 8 and
-                        30 characters,contain at least one digit, at least one lower and uppercase
-                        letter, no whitespaces allowed</p>
+                    <p class="bg-danger pull-right" th:if="${passwordCheck}">Hasło musi zawierać od 8 do
+                        30 znaków, zawierać co najmniej jedną cyfrę, co najmniej jedną małą i wielką literę,
+                        bez odstępów białych</p>
                     <input id="password" th:field="*{password}" class="form-control" type="password" required></div>
                 <div class="form-group">
                     <label>Email: </label>
-                    <p class="bg-danger pull-right" th:if="${emailExists}">Email already exists</p>
+                    <p class="bg-danger pull-right" th:if="${emailExists}">Email już istnieje.</p>
                     <input id="email" th:field="*{email}" class="form-control" type="email" required></div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Zarejestruj</button>
