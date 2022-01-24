@@ -3,6 +3,7 @@
 ## Table of contents
 * [General info](#General-info)
 * [Main system functions](#Main-system-functions)
+* [Live Demo](#Live-Demo)
 * [Technologies](#Technologies)
 * [TODO](#TODO)
 * [How To Use](#How-To-Use)
@@ -35,10 +36,15 @@ Buying a tour - calculating the final amount according to the number of people:
 
 ## Example users
 
-  | Login  | Password |  Role |
-  | ------ | -------- | ----- |
-  | admin  |  admin1  | ADMIN |
-  | user   |  user1   | USER  |
+  | Login  | Password |   email   |  Role |
+  | ------ | -------- |---------- | ----- |
+  | admin  |  admin1  |admin@o2.pl| ADMIN |
+  | user   |  user1   | user@o2.pl| USER  |
+  
+## Live Demo
+
+https://travel-agency-service.herokuapp.com/
+
 ## Technologies:
 
  * JDK 11
