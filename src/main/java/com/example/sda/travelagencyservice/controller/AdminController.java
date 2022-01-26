@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 
-
 @Controller
 public class AdminController {
 
@@ -73,8 +72,8 @@ public class AdminController {
         List<HotelDto> hotels = hotelService.getAllHotel();
         model.addAttribute("cities", cities);
         model.addAttribute("trip", trip);
-        model.addAttribute("airports",airports);
-        model.addAttribute("hotels",hotels);
+        model.addAttribute("airports", airports);
+        model.addAttribute("hotels", hotels);
         return "editTrip";
     }
 
@@ -92,9 +91,15 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String getAllUsers(Model model){
-        model.addAttribute("users",userService.getAllUsers());
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
         return "usersList";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUserById(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 
 }

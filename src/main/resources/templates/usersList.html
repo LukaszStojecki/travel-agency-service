@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
+
 <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height:64px;">
     <div class="container"><a class="navbar-brand logo" href="#"></a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only"></span><span
@@ -46,6 +47,8 @@
                         <th>Id</th>
                         <th>Nazwa użytkownika</th>
                         <th>Email</th>
+                        <th>Akcja</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -53,6 +56,11 @@
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.email}"></td>
+                        <td>
+                            <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-secondary"><a
+                                    th:href="@{delete/{id}(id=${user.id})}">Usuń użytkownika!</a>
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -66,6 +74,7 @@
     <div class="footer" align="center" style="color: white">
         <p>© 2020 Copyright</p>
     </div>
+
 </footer>
 
 <script th:src="@{/assets/js/jquery.min.js}"></script>
